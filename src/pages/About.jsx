@@ -1,7 +1,7 @@
 import SectionHeader from "../components/SectionHeader"
 import aboutImg from "../assets/about-us.png"
 import emmanuelImg from "../assets/Emmanuel-Agyapong.jpeg"
-import juniorImg from "../assets/Junior-R-Timè.jpeg"
+import juniorImg from "../assets/junior-r-time.jpeg"
 
 export default function About() {
   return (
