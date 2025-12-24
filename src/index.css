@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Bebas+Neue&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  color: #f6f7fb;
+  background-color: #07090f;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 156, 43, 0.05), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(255, 156, 43, 0.08), transparent 35%),
+    #07090f;
+}
+
+.glass-panel {
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 15px 60px rgba(0, 0, 0, 0.45);
+}
+
+.orange-glow {
+  box-shadow: 0 0 0 1px rgba(255, 156, 43, 0.25), 0 20px 40px rgba(255, 156, 43, 0.2),
+    0 0 60px rgba(255, 156, 43, 0.3);
+}
+
+.section-shell {
+  @apply px-6 sm:px-10 lg:px-16 xl:px-24 max-w-7xl mx-auto;
+}
+
+.grid-overlay {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+}
