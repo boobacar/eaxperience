@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import CTAButton from "../components/CTAButton"
+import PricingTable from "../components/PricingTable"
 import SectionHeader from "../components/SectionHeader"
 import { services } from "../data/content"
 
@@ -76,6 +77,8 @@ export default function Services() {
           ))}
         </div>
       </section>
+
+      <PricingTable />
     </div>
   )
 }

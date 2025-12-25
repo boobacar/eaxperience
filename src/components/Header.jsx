@@ -1,19 +1,25 @@
-import { useRef, useState } from "react"
-import { Link, NavLink, useLocation } from "react-router-dom"
-import { navLinks } from "../data/content"
-import logo from "../assets/logo.png"
+import { useRef, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { navLinks } from "../data/content";
+import logo from "../assets/logo.png";
 
 const Logo = () => (
   <Link to="/" className="flex items-center gap-3 text-white">
-    <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-brand-orange/70 bg-white/5 p-1 shadow-glow">
-      <img src={logo} alt="EAXperience logo" className="h-full w-full object-contain scale-[1.1]" />
+    <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-brand-orange/70 bg-white/5 p-1 shadow-glow">
+      <img
+        src={logo}
+        alt="EAXperience logo"
+        className="h-full w-full object-contain scale-[1.1]"
+      />
     </div>
     <div className="leading-none">
       <span className="block font-display text-xl">EAXperience</span>
-      <span className="text-xs uppercase tracking-[0.25em] text-brand-orange/80">Transform</span>
+      <span className="text-xs uppercase tracking-[0.25em] text-brand-orange/80">
+        Transform
+      </span>
     </div>
   </Link>
-)
+);
 
 const Dropdown = ({ items, onNavigate, onEnter, onLeave }) => (
   <div
@@ -26,34 +32,34 @@ const Dropdown = ({ items, onNavigate, onEnter, onLeave }) => (
         key={item.to}
         to={item.to}
         onClick={onNavigate}
-        className="block rounded-xl px-4 py-3 text-sm font-medium text-white/90 hover:bg-white/5"
+        className="block rounded-xl px-4 py-3 text-sm font-medium text-white/90 hover:bg-orange-400/20"
       >
         {item.label}
       </Link>
     ))}
   </div>
-)
+);
 
 export default function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [openDropdown, setOpenDropdown] = useState(null)
-  const closeTimer = useRef(null)
-  const location = useLocation()
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const closeTimer = useRef(null);
+  const location = useLocation();
 
   const handleNavigate = () => {
-    setMobileOpen(false)
-    setOpenDropdown(null)
-  }
+    setMobileOpen(false);
+    setOpenDropdown(null);
+  };
 
   const openMenu = (label) => {
-    if (closeTimer.current) clearTimeout(closeTimer.current)
-    setOpenDropdown(label)
-  }
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenDropdown(label);
+  };
 
   const closeMenu = () => {
-    if (closeTimer.current) clearTimeout(closeTimer.current)
-    closeTimer.current = setTimeout(() => setOpenDropdown(null), 120)
-  }
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpenDropdown(null), 120);
+  };
 
   return (
     <header className="fixed top-0 z-50 w-full bg-gradient-to-b from-[#07090f]/95 via-[#07090f]/80 to-transparent backdrop-blur-xl border-b border-white/5">
@@ -62,11 +68,14 @@ export default function Header() {
 
         <nav className="hidden lg:flex items-center gap-2 text-sm font-medium">
           {navLinks.map((link) => {
-            const hasChildren = Array.isArray(link.children)
-            const isDropdownOnly = hasChildren && !link.to
+            const hasChildren = Array.isArray(link.children);
+            const isDropdownOnly = hasChildren && !link.to;
             const active =
-              (link.to && (location.pathname === link.to || (link.to !== "/" && location.pathname.startsWith(link.to)))) ||
-              (isDropdownOnly && location.pathname.startsWith("/resources"))
+              (link.to &&
+                (location.pathname === link.to ||
+                  (link.to !== "/" &&
+                    location.pathname.startsWith(link.to)))) ||
+              (isDropdownOnly && location.pathname.startsWith("/resources"));
 
             return (
               <div
@@ -80,13 +89,17 @@ export default function Header() {
                     type="button"
                     className={[
                       "px-4 py-2 rounded-full transition-colors flex items-center gap-1",
-                      active ? "text-white bg-white/5" : "text-white/70 hover:text-brand-orange",
+                      active
+                        ? "text-white bg-white/5"
+                        : "text-white/70 hover:text-brand-orange",
                     ].join(" ")}
                     aria-haspopup="menu"
                     aria-expanded={openDropdown === link.label}
                   >
                     {link.label}
-                    {hasChildren && <span className="text-xs text-brand-orange/80">▼</span>}
+                    {hasChildren && (
+                      <span className="text-xs text-brand-orange/80">▼</span>
+                    )}
                   </button>
                 ) : (
                   <NavLink
@@ -94,12 +107,16 @@ export default function Header() {
                     className={({ isActive }) =>
                       [
                         "px-4 py-2 rounded-full transition-colors flex items-center gap-1",
-                        isActive || active ? "text-white bg-white/5" : "text-white/70 hover:text-brand-orange",
+                        isActive || active
+                          ? "text-white bg-white/5"
+                          : "text-white/70 hover:text-brand-orange",
                       ].join(" ")
                     }
                   >
                     {link.label}
-                    {hasChildren && <span className="text-xs text-brand-orange/80">▼</span>}
+                    {hasChildren && (
+                      <span className="text-xs text-brand-orange/80">▼</span>
+                    )}
                   </NavLink>
                 )}
                 {hasChildren && openDropdown === link.label && (
@@ -111,7 +128,7 @@ export default function Header() {
                   />
                 )}
               </div>
-            )
+            );
           })}
         </nav>
 
@@ -132,9 +149,15 @@ export default function Header() {
           <span className="sr-only">Toggle navigation</span>
           <div className="absolute left-1/2 top-1/2 w-6 -translate-x-1/2 -translate-y-1/2 space-y-1.5">
             <span
-              className={`block h-0.5 bg-white transition ${mobileOpen ? "translate-y-2 rotate-45" : ""}`}
+              className={`block h-0.5 bg-white transition ${
+                mobileOpen ? "translate-y-2 rotate-45" : ""
+              }`}
             />
-            <span className={`block h-0.5 bg-white transition ${mobileOpen ? "opacity-0" : ""}`} />
+            <span
+              className={`block h-0.5 bg-white transition ${
+                mobileOpen ? "opacity-0" : ""
+              }`}
+            />
             <span
               className={`block h-0.5 bg-white transition ${
                 mobileOpen ? "-translate-y-2 -rotate-45" : ""
@@ -156,12 +179,20 @@ export default function Header() {
                     className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3 text-white"
                   >
                     <span>{link.label}</span>
-                    {link.children && <span className="text-xs uppercase text-white/60">Menu</span>}
+                    {link.children && (
+                      <span className="text-xs uppercase text-white/60">
+                        Menu
+                      </span>
+                    )}
                   </Link>
                 ) : (
                   <div className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3 text-white">
                     <span>{link.label}</span>
-                    {link.children && <span className="text-xs uppercase text-white/60">Menu</span>}
+                    {link.children && (
+                      <span className="text-xs uppercase text-white/60">
+                        Menu
+                      </span>
+                    )}
                   </div>
                 )}
                 {link.children && (
@@ -191,5 +222,5 @@ export default function Header() {
         </div>
       )}
     </header>
-  )
+  );
 }

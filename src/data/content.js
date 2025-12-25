@@ -121,22 +121,22 @@ export const heroPillars = [
 
 export const events = [
   {
-    title: "High-Output Combine",
+    title: "Athlete Intake + Goal Mapping",
+    date: "Weekly",
+    location: "EAXperience HQ",
+    blurb: "60-minute session with force plate testing, movement audit, and a day-one training roadmap tailored to your sport.",
+  },
+  {
+    title: "Return-to-Play Checkpoint",
+    date: "Bi-weekly",
+    location: "EAXperience HQ",
+    blurb: "Re-assessment for athletes rehabbing: progress testing, load adjustments, and updated home programming.",
+  },
+  {
+    title: "Strength Lab: Speed & Power",
     date: "Monthly",
-    location: "NYC Performance Lab",
-    blurb: "Speed, power, and resilience testing with real-time coaching and take-home dashboards.",
-  },
-  {
-    title: "Move Free Workshop",
-    date: "Next: Feb 2025",
-    location: "Brooklyn Studio",
-    blurb: "A small-group reset focused on pain-free patterns, breathwork, and strength foundations.",
-  },
-  {
-    title: "Coach Accelerator",
-    date: "Spring 2025",
-    location: "Hybrid",
-    blurb: "A 4-week intensive for coaches who want to blend rehab-grade rigor into performance design.",
+    location: "EAXperience HQ",
+    blurb: "Small-group contrast training focused on acceleration, plyometrics, and power metrics with live coaching feedback.",
   },
 ]
 
@@ -267,6 +267,20 @@ export const blogPosts = [
     ],
   },
 ]
+
+export const pricingPlans = [
+  { name: "Base (1x/week)", price: "$199 / month", details: "4 sessions/month • 3-month minimum" },
+  { name: "Plus (2x/week)", price: "$349 / month", details: "8 sessions/month" },
+  { name: "Pro (3x/week)", price: "$499 / month", details: "12 sessions/month" },
+  { name: "Unlimited Access", price: "$579 / month", details: "16 sessions/month • Semi-private" },
+  { name: "One-on-One Coaching", price: "$120 / session", details: "60-minute personalized session" },
+  { name: "Performance Physical Therapy", price: "$150–$1,050", details: "1–8 sessions/month" },
+  { name: "Remote Coaching (Live)", price: "$149–$249", details: "1–2x/week live online" },
+  { name: "Async Microdose Coaching", price: "$79", details: "Weekly program + messaging" },
+  { name: "Ambassador Plan", price: "Contact for pricing", details: "Elite selective athlete track" },
+]
+
+export const pricingNote = "Family discounts available."
 
 export const resources = {
   podcasts: [

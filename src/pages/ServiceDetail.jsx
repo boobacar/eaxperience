@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom"
 import CTAButton from "../components/CTAButton"
+import PricingTable from "../components/PricingTable"
 import SectionHeader from "../components/SectionHeader"
 import { services } from "../data/content"
 
@@ -447,6 +448,7 @@ export default function ServiceDetail() {
           </div>
         )}
       </section>
+      <PricingTable />
     </div>
   )
 }

@@ -1,73 +1,81 @@
-import { Link } from "react-router-dom"
-import { useEffect, useRef, useState } from "react"
-import heroImg from "../assets/hero.png"
-import CTAButton from "../components/CTAButton"
-import SectionHeader from "../components/SectionHeader"
-import { heroPillars, services, stats, testimonials, events } from "../data/content"
+import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import heroImg from "../assets/hero.png";
+import CTAButton from "../components/CTAButton";
+import SectionHeader from "../components/SectionHeader";
+import {
+  heroPillars,
+  services,
+  stats,
+  testimonials,
+  events,
+} from "../data/content";
 
 const Pill = ({ title, body }) => (
   <div className="glass-panel flex flex-col gap-1 rounded-2xl p-4">
-    <p className="text-xs uppercase tracking-[0.2em] text-brand-orange">{title}</p>
+    <p className="text-xs uppercase tracking-[0.2em] text-brand-orange">
+      {title}
+    </p>
     <p className="text-sm text-white/80">{body}</p>
   </div>
-)
+);
 
 const CountUp = ({ value, duration = 1600 }) => {
-  const [display, setDisplay] = useState(0)
-  const [started, setStarted] = useState(false)
-  const ref = useRef(null)
-  const numeric = parseFloat(String(value).replace(/[^\d.]/g, "")) || 0
-  const suffix = String(value).replace(/[0-9.,]/g, "")
+  const [display, setDisplay] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef(null);
+  const numeric = parseFloat(String(value).replace(/[^\d.]/g, "")) || 0;
+  const suffix = String(value).replace(/[0-9.,]/g, "");
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
+    const el = ref.current;
+    if (!el) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setStarted(true)
-            observer.disconnect()
+            setStarted(true);
+            observer.disconnect();
           }
-        })
+        });
       },
       { threshold: 0.3 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
-    if (!started) return
-    const startTime = performance.now()
+    if (!started) return;
+    const startTime = performance.now();
     const step = (now) => {
-      const progress = Math.min((now - startTime) / duration, 1)
-      const current = Math.round(progress * numeric)
-      setDisplay(current)
-      if (progress < 1) requestAnimationFrame(step)
-    }
-    requestAnimationFrame(step)
-  }, [started, numeric, duration])
+      const progress = Math.min((now - startTime) / duration, 1);
+      const current = Math.round(progress * numeric);
+      setDisplay(current);
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [started, numeric, duration]);
 
   return (
     <span ref={ref}>
       {display.toLocaleString()}
       {suffix}
     </span>
-  )
-}
+  );
+};
 
 export default function Home() {
-  const spotlightService = services
-  const marqueeEvents = events.slice(0, 2)
-  const [slide, setSlide] = useState(0)
+  const spotlightService = services;
+  const marqueeEvents = events.slice(0, 2);
+  const [slide, setSlide] = useState(0);
 
   useEffect(() => {
     const id = setInterval(() => {
-      setSlide((prev) => (prev + 1) % testimonials.length)
-    }, 6000)
-    return () => clearInterval(id)
-  }, [])
+      setSlide((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div className="space-y-20 py-12">
@@ -77,11 +85,13 @@ export default function Home() {
             Movement first. Performance always.
           </div>
           <h1 className="font-display text-4xl leading-[1] text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            Where athletes don&apos;t just train—<span className="text-brand-orange">they transform.</span>
+            Where athletes don&apos;t just train—
+            <span className="text-brand-orange">they transform.</span>
           </h1>
           <p className="max-w-2xl text-lg text-white/70">
-            EAXperience blends sports performance, physical therapy, and precision coaching so you can
-            move better, recover faster, and dominate longer. Every plan is hand-built by experts.
+            EAXperience blends sports performance, physical therapy, and
+            precision coaching so you can move better, recover faster, and
+            dominate longer. Every plan is hand-built by experts.
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <CTAButton to="/contact">Book a session</CTAButton>
@@ -103,16 +113,24 @@ export default function Home() {
               Coach-led
             </div>
             <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-gradient-to-b from-brand-orange/10 via-white/5 to-[#07090f]">
-              <img src={heroImg} alt="EAXperience coach" className="h-full w-full object-cover" />
+              <img
+                src={heroImg}
+                alt="EAXperience coach"
+                className="h-full w-full object-cover"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-[#07090f]/60 via-transparent to-transparent" />
             </div>
             <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-white/80">
               <div className="rounded-2xl bg-white/5 p-3">
-                <p className="text-2xl font-display text-brand-orange">1:1 + Semi-Private</p>
+                <p className="text-2xl font-display text-brand-orange">
+                  1:1 + Semi-Private
+                </p>
                 <p>Built for athletes and high performers.</p>
               </div>
               <div className="rounded-2xl bg-white/5 p-3">
-                <p className="text-2xl font-display text-brand-orange">Data + Care</p>
+                <p className="text-2xl font-display text-brand-orange">
+                  Data + Care
+                </p>
                 <p>Objective testing and rehab expertise.</p>
               </div>
             </div>
@@ -124,8 +142,13 @@ export default function Home() {
         <div className="grid gap-4 rounded-3xl border border-white/5 bg-white/5/50 p-6 backdrop-blur">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((item) => (
-              <div key={item.label} className="glass-panel rounded-2xl p-4 text-center">
-                <p className="text-sm uppercase tracking-[0.25em] text-white/50">{item.label}</p>
+              <div
+                key={item.label}
+                className="glass-panel rounded-2xl p-4 text-center"
+              >
+                <p className="text-sm uppercase tracking-[0.25em] text-white/50">
+                  {item.label}
+                </p>
                 <p className="font-display text-3xl text-brand-orange">
                   <CountUp value={item.value} />
                 </p>
@@ -151,12 +174,20 @@ export default function Home() {
               <div className="relative space-y-4">
                 <div className="overflow-hidden rounded-2xl border border-white/5">
                   <div className="relative aspect-video">
-                    <img src={service.image} alt={service.title} className="h-full w-full object-cover" />
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="h-full w-full object-cover"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#07090f] via-transparent to-transparent" />
                   </div>
                 </div>
-                <p className="text-xs uppercase tracking-[0.3em] text-brand-orange">Program</p>
-                <h3 className="font-display text-2xl text-white">{service.title}</h3>
+                <p className="text-xs uppercase tracking-[0.3em] text-brand-orange">
+                  Program
+                </p>
+                <h3 className="font-display text-2xl text-white">
+                  {service.title}
+                </h3>
                 <p className="text-sm text-white/70">{service.summary}</p>
                 <ul className="space-y-2 text-sm text-white/70">
                   {service.outcomes.slice(0, 2).map((point) => (
@@ -192,7 +223,9 @@ export default function Home() {
                   <span>{event.date}</span>
                   <span>{event.location}</span>
                 </div>
-                <p className="mt-2 text-xl font-display text-white">{event.title}</p>
+                <p className="mt-2 text-xl font-display text-white">
+                  {event.title}
+                </p>
                 <p className="text-sm text-white/70">{event.blurb}</p>
               </div>
             ))}
@@ -210,10 +243,26 @@ export default function Home() {
             <p className="font-display text-4xl leading-tight text-white">
               “If you don’t work, then you don’t eat.”
             </p>
-            <p className="text-sm uppercase tracking-[0.2em] text-white/60">EMMANUEL — Founder</p>
-            <div className="rounded-2xl border border-white/5 bg-white/5 p-4 text-sm text-white/70">
-              Use this space for a bold brand image or highlight video. Drop your media inside this
-              container later.
+            <p className="text-sm uppercase tracking-[0.2em] text-white/60">
+              EMMANUEL — Founder
+            </p>
+            <div className="rounded-2xl border border-white/5 bg-white/5 p-4">
+              <div className="relative overflow-hidden rounded-xl border border-white/5 shadow-card">
+                <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-brand-orange/20 via-transparent to-white/10" />
+                <div className="relative aspect-video bg-[#05070c]">
+                  <iframe
+                    src="https://www.youtube.com/embed/X0T1gjh7xqI?rel=0&modestbranding=1&color=white"
+                    title="EAXperience highlight video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="h-full w-full"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <p className="mt-3 text-xs uppercase tracking-[0.25em] text-white/60">
+                Watch the EAXperience difference
+              </p>
             </div>
           </div>
         </div>
@@ -242,7 +291,9 @@ export default function Home() {
               >
                 <div className="glass-panel relative flex h-full flex-col justify-between rounded-3xl p-6 md:p-8">
                   <div className="absolute -left-6 -top-6 h-16 w-16 rotate-12 rounded-full bg-brand-orange/20 blur-xl" />
-                  <p className="relative text-lg md:text-xl font-semibold text-white">{item.quote}</p>
+                  <p className="relative text-lg md:text-xl font-semibold text-white">
+                    {item.quote}
+                  </p>
                   <div className="relative mt-6 text-sm text-white/70 space-y-1">
                     {item.rating && (
                       <div className="flex items-center gap-1 text-brand-orange">
@@ -250,11 +301,13 @@ export default function Home() {
                           <span key={idx}>★</span>
                         ))}
                         {item.rating < 5 &&
-                          Array.from({ length: 5 - item.rating }).map((_, idx) => (
-                            <span key={`o-${idx}`} className="text-white/20">
-                              ★
-                            </span>
-                          ))}
+                          Array.from({ length: 5 - item.rating }).map(
+                            (_, idx) => (
+                              <span key={`o-${idx}`} className="text-white/20">
+                                ★
+                              </span>
+                            )
+                          )}
                       </div>
                     )}
                     <p className="font-semibold text-white">{item.name}</p>
@@ -271,7 +324,9 @@ export default function Home() {
                 key={idx}
                 onClick={() => setSlide(idx)}
                 className={`h-2.5 w-2.5 rounded-full transition ${
-                  slide === idx ? "bg-brand-orange shadow-glow" : "bg-white/30 hover:bg-white/60"
+                  slide === idx
+                    ? "bg-brand-orange shadow-glow"
+                    : "bg-white/30 hover:bg-white/60"
                 }`}
                 aria-label={`Go to testimonial ${idx + 1}`}
               />
@@ -297,5 +352,5 @@ export default function Home() {
         </div>
       </section>
     </div>
-  )
+  );
 }
