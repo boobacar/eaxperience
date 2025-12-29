@@ -1,22 +1,37 @@
-import img1 from "../assets/session/Ea-Xperience-28.jpg"
-import img2 from "../assets/session/Ea-Xperience-39.jpg"
-import img3 from "../assets/session/Ea-Xperience-41.jpg"
-import img4 from "../assets/session/Ea-Xperience-44.jpg"
-import img5 from "../assets/session/Ea-Xperience-58.jpg"
-import img6 from "../assets/session/Ea-Xperience-76-p-1600.jpg"
-import img7 from "../assets/session/Ea-Xperience-93.jpg"
-import img8 from "../assets/session/Picture1.png"
-import img9 from "../assets/session/Picture2.png"
-import img10 from "../assets/session/Picture3.png"
-import img11 from "../assets/session/Picture4.png"
-import img12 from "../assets/session/Picture5.png"
-import img13 from "../assets/session/Picture6.png"
-import img14 from "../assets/session/a650784e7fcb2bf3e6a4314fae5e58c6_Ea-Xperience-55-p-2000.jpg"
-import blogKids from "../assets/kids-sports.jpg"
-import blogStrength from "../assets/muscle-and-strength.jpg"
-import blogBurnFat from "../assets/burn-fat.jpg"
+import img1 from "../assets/session/Ea-Xperience-28.jpg";
+import img2 from "../assets/session/Ea-Xperience-39.jpg";
+import img3 from "../assets/session/Ea-Xperience-41.jpg";
+import img4 from "../assets/session/Ea-Xperience-44.jpg";
+import img5 from "../assets/session/Ea-Xperience-58.jpg";
+import img6 from "../assets/session/Ea-Xperience-76-p-1600.jpg";
+import img7 from "../assets/session/Ea-Xperience-93.jpg";
+import img8 from "../assets/session/Picture1.png";
+import img9 from "../assets/session/Picture2.png";
+import img10 from "../assets/session/Picture3.png";
+import img11 from "../assets/session/Picture4.png";
+import img12 from "../assets/session/Picture5.png";
+import img13 from "../assets/session/Picture6.png";
+import img14 from "../assets/session/a650784e7fcb2bf3e6a4314fae5e58c6_Ea-Xperience-55-p-2000.jpg";
+import blogKids from "../assets/kids-sports.jpg";
+import blogStrength from "../assets/muscle-and-strength.jpg";
+import blogBurnFat from "../assets/burn-fat.jpg";
 
-const sessionImages = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14]
+const sessionImages = [
+  img1,
+  img2,
+  img3,
+  img4,
+  img5,
+  img6,
+  img7,
+  img8,
+  img9,
+  img10,
+  img11,
+  img12,
+  img13,
+  img14,
+];
 
 export const navLinks = [
   { label: "Home", to: "/" },
@@ -28,7 +43,10 @@ export const navLinks = [
       { label: "Sport Performance", to: "/services/sport-performance" },
       { label: "Physical Therapy", to: "/services/physical-therapy" },
       { label: "General Fitness", to: "/services/general-fitness" },
-      { label: "Sports Program & School Consultation", to: "/services/school-consultation" },
+      {
+        label: "Sports Program & School Consultation",
+        to: "/services/school-consultation",
+      },
     ],
   },
   { label: "Partner", to: "/partner" },
@@ -42,8 +60,7 @@ export const navLinks = [
     ],
   },
   { label: "About us", to: "/about" },
-  { label: "Contact us", to: "/contact" },
-]
+];
 
 const rawServices = [
   {
@@ -102,43 +119,55 @@ const rawServices = [
       "Bridge the gap between rehab and performance at scale. Build resilient athletes, sustainable wins, and long-term cost savings.",
     cta: "Design my pilot",
   },
-]
+];
 
 export const services = rawServices.map((service, idx) => {
-  const primary = sessionImages[idx % sessionImages.length]
+  const primary = sessionImages[idx % sessionImages.length];
   const gallery = [
     sessionImages[(idx * 3 + 1) % sessionImages.length],
     sessionImages[(idx * 5 + 2) % sessionImages.length],
-  ]
-  return { ...service, image: primary, gallery }
-})
+  ];
+  return { ...service, image: primary, gallery };
+});
 
 export const heroPillars = [
-  { title: "Result-driven", body: "Data-led decisions and visible gains every cycle." },
-  { title: "Research-backed", body: "Built by Doctors of Physical Therapy and performance coaches." },
-  { title: "Evidence-based training", body: "Systems, not guesswork. Precision over trends." },
-]
+  {
+    title: "Result-driven",
+    body: "Data-led decisions and visible gains every cycle.",
+  },
+  {
+    title: "Research-backed",
+    body: "Built by Doctors of Physical Therapy and performance coaches.",
+  },
+  {
+    title: "Evidence-based training",
+    body: "Systems, not guesswork. Precision over trends.",
+  },
+];
 
 export const events = [
   {
     title: "Athlete Intake + Goal Mapping",
     date: "Weekly",
     location: "EAXperience HQ",
-    blurb: "60-minute session with force plate testing, movement audit, and a day-one training roadmap tailored to your sport.",
+    blurb:
+      "60-minute session with force plate testing, movement audit, and a day-one training roadmap tailored to your sport.",
   },
   {
     title: "Return-to-Play Checkpoint",
     date: "Bi-weekly",
     location: "EAXperience HQ",
-    blurb: "Re-assessment for athletes rehabbing: progress testing, load adjustments, and updated home programming.",
+    blurb:
+      "Re-assessment for athletes rehabbing: progress testing, load adjustments, and updated home programming.",
   },
   {
     title: "Strength Lab: Speed & Power",
     date: "Monthly",
     location: "EAXperience HQ",
-    blurb: "Small-group contrast training focused on acceleration, plyometrics, and power metrics with live coaching feedback.",
+    blurb:
+      "Small-group contrast training focused on acceleration, plyometrics, and power metrics with live coaching feedback.",
   },
-]
+];
 
 export const blogPosts = [
   {
@@ -202,7 +231,11 @@ export const blogPosts = [
           "You don’t need 30 exercises. You need a repeatable plan you can progress: squat/hinge, push, pull, carry, and single-leg work.",
           "Consistency beats novelty. Track your lifts and earn small progress week to week.",
         ],
-        bullets: ["3–5 sessions/week", "6–12 hard sets per muscle per week", "Leave 1–2 reps in reserve most sets"],
+        bullets: [
+          "3–5 sessions/week",
+          "6–12 hard sets per muscle per week",
+          "Leave 1–2 reps in reserve most sets",
+        ],
       },
       {
         heading: "Progressive overload without getting hurt",
@@ -216,7 +249,11 @@ export const blogPosts = [
         body: [
           "Protein is the foundation. Then enough calories, carbs for training output, and hydration to recover.",
         ],
-        bullets: ["Protein: ~0.7–1.0 g per lb bodyweight/day", "Creatine: 3–5 g/day", "Sleep: 7–9 hours for adaptation"],
+        bullets: [
+          "Protein: ~0.7–1.0 g per lb bodyweight/day",
+          "Creatine: 3–5 g/day",
+          "Sleep: 7–9 hours for adaptation",
+        ],
       },
       {
         heading: "Bottom line",
@@ -249,14 +286,22 @@ export const blogPosts = [
           "Lift heavy enough to give your body a reason to keep muscle: compound lifts, progressive effort, and consistent volume.",
           "Cardio is a tool—not the plan. Use it to support the deficit, not replace training.",
         ],
-        bullets: ["Strength train 3–4x/week", "Keep intensity (weights) high", "Add low-impact cardio 2–3x/week if needed"],
+        bullets: [
+          "Strength train 3–4x/week",
+          "Keep intensity (weights) high",
+          "Add low-impact cardio 2–3x/week if needed",
+        ],
       },
       {
         heading: "Nutrition priorities (lose fat)",
         body: [
           "Protein stays high, carbs support training, and your deficit is modest and sustainable.",
         ],
-        bullets: ["Aim for ~0.7–1.0 g protein/lb/day", "Deficit: ~250–500 kcal/day", "Steps: 7–10k/day as a baseline"],
+        bullets: [
+          "Aim for ~0.7–1.0 g protein/lb/day",
+          "Deficit: ~250–500 kcal/day",
+          "Steps: 7–10k/day as a baseline",
+        ],
       },
       {
         heading: "Bottom line",
@@ -266,79 +311,140 @@ export const blogPosts = [
       },
     ],
   },
-]
+];
 
 export const pricingPlans = [
-  { name: "Base (1x/week)", price: "$199 / month", details: "4 sessions/month • 3-month minimum" },
-  { name: "Plus (2x/week)", price: "$349 / month", details: "8 sessions/month" },
-  { name: "Pro (3x/week)", price: "$499 / month", details: "12 sessions/month" },
-  { name: "Unlimited Access", price: "$579 / month", details: "16 sessions/month • Semi-private" },
-  { name: "One-on-One Coaching", price: "$120 / session", details: "60-minute personalized session" },
-  { name: "Performance Physical Therapy", price: "$150–$1,050", details: "1–8 sessions/month" },
-  { name: "Remote Coaching (Live)", price: "$149–$249", details: "1–2x/week live online" },
-  { name: "Async Microdose Coaching", price: "$79", details: "Weekly program + messaging" },
-  { name: "Ambassador Plan", price: "Contact for pricing", details: "Elite selective athlete track" },
-]
+  {
+    name: "Base (1x/week)",
+    price: "$199 / month",
+    details: "4 sessions/month • 3-month minimum",
+  },
+  {
+    name: "Plus (2x/week)",
+    price: "$349 / month",
+    details: "8 sessions/month",
+  },
+  {
+    name: "Pro (3x/week)",
+    price: "$499 / month",
+    details: "12 sessions/month",
+  },
+  {
+    name: "Unlimited Access",
+    price: "$579 / month",
+    details: "16 sessions/month • Semi-private",
+  },
+  {
+    name: "One-on-One Coaching",
+    price: "$120 / session",
+    details: "60-minute personalized session",
+  },
+  {
+    name: "Performance Physical Therapy",
+    price: "$150–$1,050",
+    details: "1–8 sessions/month",
+  },
+  {
+    name: "Remote Coaching (Live)",
+    price: "$149–$249",
+    details: "1–2x/week live online",
+  },
+  {
+    name: "Async Microdose Coaching",
+    price: "$79",
+    details: "Weekly program + messaging",
+  },
+  {
+    name: "Ambassador Plan",
+    price: "Contact for pricing",
+    details: "Elite selective athlete track",
+  },
+];
 
-export const pricingNote = "Family discounts available."
+export const pricingNote = "Family discounts available.";
 
 export const resources = {
   podcasts: [
-    { title: "Peak Output", note: "Training, recovery, and performance breakdowns in 20 minutes." },
-    { title: "The Durable Athlete", note: "Stories of athletes who extended their prime with smart training." },
+    {
+      title: "Peak Output",
+      note: "Training, recovery, and performance breakdowns in 20 minutes.",
+    },
+    {
+      title: "The Durable Athlete",
+      note: "Stories of athletes who extended their prime with smart training.",
+    },
   ],
-  blog: blogPosts.map((post) => ({ title: post.title, note: post.excerpt, to: `/resources/blog/${post.slug}` })),
+  blog: blogPosts.map((post) => ({
+    title: post.title,
+    note: post.excerpt,
+    to: `/resources/blog/${post.slug}`,
+  })),
   books: [
-    { title: "Built to Move", note: "Daily practices to stay athletic at any age." },
-    { title: "The System", note: "How high-performing programs make decisions that last." },
+    {
+      title: "Built to Move",
+      note: "Daily practices to stay athletic at any age.",
+    },
+    {
+      title: "The System",
+      note: "How high-performing programs make decisions that last.",
+    },
   ],
   newsletter: [
-    { title: "The EAX Dispatch", note: "Monthly drops: programming riffs, event invites, and athlete spotlights." },
+    {
+      title: "The EAX Dispatch",
+      note: "Monthly drops: programming riffs, event invites, and athlete spotlights.",
+    },
   ],
-}
+};
 
 export const testimonials = [
   {
-    quote: "I stopped guessing. My coach gave me a roadmap that made my knee feel bulletproof—and my sprint times dropped.",
+    quote:
+      "I stopped guessing. My coach gave me a roadmap that made my knee feel bulletproof—and my sprint times dropped.",
     name: "Ryan D.",
     role: "Sprinter",
     rating: 5,
   },
   {
-    quote: "PT that felt like high-performance coaching. I was training, not just rehabbing.",
+    quote:
+      "PT that felt like high-performance coaching. I was training, not just rehabbing.",
     name: "Phiona L.",
     role: "Soccer",
     rating: 4,
   },
   {
-    quote: "Our athletes cut injuries in half during the pilot. The staff training was the difference.",
+    quote:
+      "Our athletes cut injuries in half during the pilot. The staff training was the difference.",
     name: "Coach J. Peters",
     role: "Athletic Director",
     rating: 5,
   },
   {
-    quote: "They blended rehab and strength so I could lift heavy again without flaring my back.",
+    quote:
+      "They blended rehab and strength so I could lift heavy again without flaring my back.",
     name: "Marco S.",
     role: "Powerlifting",
     rating: 4,
   },
   {
-    quote: "Clear cues, clear metrics, no fluff. I finally feel fast and healthy in-season.",
+    quote:
+      "Clear cues, clear metrics, no fluff. I finally feel fast and healthy in-season.",
     name: "Aliyah T.",
     role: "Track & Field",
     rating: 5,
   },
   {
-    quote: "We got a plan for the whole roster. Fewer tweaks, better practices, more wins.",
+    quote:
+      "We got a plan for the whole roster. Fewer tweaks, better practices, more wins.",
     name: "Coach Ramirez",
     role: "Basketball",
     rating: 4,
   },
-]
+];
 
 export const stats = [
   { label: "Athletes served", value: "800+" },
   { label: "Avg. pain reduction", value: "72%" },
   { label: "Sprint PR wins", value: "320" },
   { label: "Team pilots", value: "35+" },
-]
+];

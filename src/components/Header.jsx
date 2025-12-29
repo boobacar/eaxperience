@@ -180,18 +180,14 @@ export default function Header() {
                   >
                     <span>{link.label}</span>
                     {link.children && (
-                      <span className="text-xs uppercase text-white/60">
-                        Menu
-                      </span>
+                      <span className="text-xs uppercase text-white/60"></span>
                     )}
                   </Link>
                 ) : (
                   <div className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3 text-white">
                     <span>{link.label}</span>
                     {link.children && (
-                      <span className="text-xs uppercase text-white/60">
-                        Menu
-                      </span>
+                      <span className="text-xs uppercase text-white/60"></span>
                     )}
                   </div>
                 )}

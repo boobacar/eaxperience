@@ -14,7 +14,7 @@ export default function Contact() {
   }, []);
 
   return (
-    <div className="space-y-14 py-12">
+    <div className="space-y-14 pt-12">
       <section className="section-shell">
         <div className="space-y-6">
           <SectionHeader
