@@ -400,45 +400,45 @@ export const resources = {
 export const testimonials = [
   {
     quote:
-      "I stopped guessing. My coach gave me a roadmap that made my knee feel bulletproof—and my sprint times dropped.",
-    name: "Ryan D.",
-    role: "Sprinter",
+      "My time with the EA Experience was not only a time to workout, but a time to talk and build relationships. Doc E did not only make me a stronger person, he became my friend and someone to relate to.",
+    name: "Brayden Miller",
+    role: "Hockey Player",
     rating: 5,
   },
   {
     quote:
-      "PT that felt like high-performance coaching. I was training, not just rehabbing.",
-    name: "Phiona L.",
-    role: "Soccer",
-    rating: 4,
-  },
-  {
-    quote:
-      "Our athletes cut injuries in half during the pilot. The staff training was the difference.",
-    name: "Coach J. Peters",
-    role: "Athletic Director",
+      "I started the EAXperience a couple years ago when I needed to gain better ankle stability and overall strength. I know the experience helped me become a better athlete and continues to do so. I loved working alongside a great trainer and other athletes to accomplish our goals in a positive environment. I was always pushed and felt accomplished after every training session and I know I benefited tremendously because of it. For that I will always be thankful for the EAXperience.",
+    name: "Natalie Frost",
+    role: "Volleyball Player",
     rating: 5,
   },
   {
     quote:
-      "They blended rehab and strength so I could lift heavy again without flaring my back.",
-    name: "Marco S.",
-    role: "Powerlifting",
-    rating: 4,
-  },
-  {
-    quote:
-      "Clear cues, clear metrics, no fluff. I finally feel fast and healthy in-season.",
-    name: "Aliyah T.",
-    role: "Track & Field",
+      "Phiona enjoyed her training sessions and learned a lot from Dr E. She was happy how her overall athleticism improved which helped her perform better on the basketball court.",
+    name: "Rick Buck",
+    role: "Parent",
     rating: 5,
   },
   {
     quote:
-      "We got a plan for the whole roster. Fewer tweaks, better practices, more wins.",
-    name: "Coach Ramirez",
-    role: "Basketball",
-    rating: 4,
+      "Definitely Worth It To Become A Better Athlete. Helped Me Become Stronger, Quicker, And More.",
+    name: "Aidan DeSanria",
+    role: "Basketball Player",
+    rating: 5,
+  },
+  {
+    quote:
+      "Working out for hockey with Doc E once a week made me more inclined to care more about my fitness and work harder throughout the season. It also motivated me to work with some teammates on creating similar lifts for the offseason.",
+    name: "Ben Di Fiore",
+    role: "Hockey Player",
+    rating: 5,
+  },
+  {
+    quote:
+      "Doctor Emmanuel has transformed me as a athlete into a completely different player. On and off the court I have seen huge improvements in my game ",
+    name: "Maddox Browngardt",
+    role: "Basketball Player",
+    rating: 5,
   },
 ];
 
