@@ -445,6 +445,6 @@ export const testimonials = [
 export const stats = [
   { label: "Athletes served", value: "800+" },
   { label: "Avg. pain reduction", value: "72%" },
-  { label: "Sprint PR wins", value: "320" },
-  { label: "Team pilots", value: "35+" },
+  { label: "HRs of experience", value: "10,000+" },
+  { label: "Training programs", value: "15+" },
 ];

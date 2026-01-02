@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const IconInstagram = (props) => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
@@ -19,7 +19,7 @@ const IconInstagram = (props) => (
       strokeLinecap="round"
     />
   </svg>
-)
+);
 
 const IconTikTok = (props) => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
@@ -36,7 +36,7 @@ const IconTikTok = (props) => (
       strokeLinecap="round"
     />
   </svg>
-)
+);
 
 const IconYouTube = (props) => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
@@ -45,18 +45,27 @@ const IconYouTube = (props) => (
       stroke="currentColor"
       strokeWidth="1.6"
     />
-    <path
-      d="M10.2 9.6v4.8L14.8 12l-4.6-2.4Z"
-      fill="currentColor"
-    />
+    <path d="M10.2 9.6v4.8L14.8 12l-4.6-2.4Z" fill="currentColor" />
   </svg>
-)
+);
 
 const socials = [
-  { label: "Instagram", href: "#", Icon: IconInstagram },
-  { label: "TikTok", href: "#", Icon: IconTikTok },
-  { label: "YouTube", href: "#", Icon: IconYouTube },
-]
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/theeaxperience?igsh=amljZHdvM3N5OTk2&utm_source=qr",
+    Icon: IconInstagram,
+  },
+  {
+    label: "TikTok",
+    href: "https://www.tiktok.com/@theeaxperience?_r=1&_t=ZP-92ip2aUF7fj",
+    Icon: IconTikTok,
+  },
+  {
+    label: "YouTube",
+    href: "https://youtube.com/@theeaxperience?si=kgZgZULm6F-S40TU",
+    Icon: IconYouTube,
+  },
+];
 
 export default function Footer() {
   return (
@@ -70,18 +79,22 @@ export default function Footer() {
               </div>
               <div className="text-left">
                 <div className="font-display text-xl">EAXperience</div>
-                <div className="text-xs uppercase tracking-[0.2em] text-brand-orange/80">Coaching Lab</div>
+                <div className="text-xs uppercase tracking-[0.2em] text-brand-orange/80">
+                  Coaching Lab
+                </div>
               </div>
             </div>
           </Link>
           <p className="text-sm text-white/70">
-            High-touch coaching, rehab, and performance design built for athletes and humans who demand
-            more from their training.
+            High-touch coaching, rehab, and performance design built for
+            athletes and humans who demand more from their training.
           </p>
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-white/70">Visit & contact</h4>
+          <h4 className="text-sm font-semibold uppercase tracking-wide text-white/70">
+            Visit & contact
+          </h4>
           <div className="mt-3 space-y-1 text-sm text-white/80">
             <p>Hours: 8am–7pm (Mon–Fri)</p>
             <p>New York City</p>
@@ -91,7 +104,9 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-white/70">Explore</h4>
+          <h4 className="text-sm font-semibold uppercase tracking-wide text-white/70">
+            Explore
+          </h4>
           <div className="mt-3 grid grid-cols-2 gap-2 text-sm text-white/80">
             <Link to="/services" className="hover:text-white">
               Services
@@ -115,9 +130,12 @@ export default function Footer() {
         </div>
 
         <div className="space-y-4">
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-white/70">Newsletter</h4>
+          <h4 className="text-sm font-semibold uppercase tracking-wide text-white/70">
+            Newsletter
+          </h4>
           <p className="text-sm text-white/70">
-            Get program drops, event invites, and training notes. We keep it tight and actionable.
+            Get program drops, event invites, and training notes. We keep it
+            tight and actionable.
           </p>
           <div className="flex items-center gap-2 rounded-2xl bg-white/5 p-2">
             <input
@@ -134,6 +152,7 @@ export default function Footer() {
               <a
                 key={social.label}
                 href={social.href}
+                target="_blank"
                 className="group flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-white hover:bg-brand-orange hover:text-black transition"
                 aria-label={social.label}
               >
@@ -147,5 +166,5 @@ export default function Footer() {
         © 2025 EAXperience. Built for transformation.
       </div>
     </footer>
-  )
+  );
 }
