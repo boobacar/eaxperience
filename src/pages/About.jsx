@@ -1,5 +1,5 @@
 import SectionHeader from "../components/SectionHeader";
-import aboutImg from "../assets/about-us.png";
+import aboutImg from "../assets/logo.png";
 import emmanuelImg from "../assets/Emmanuel-Agyapong.jpeg";
 import juniorImg from "../assets/junior-r-time.jpeg";
 
