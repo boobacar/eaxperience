@@ -151,7 +151,7 @@ export const events = [
     date: "Weekly",
     location: "EAXperience HQ",
     blurb:
-      "60-minute session with force plate testing, movement audit, and a day-one training roadmap tailored to your sport.",
+      "60-minute session, movement audit, and a day-one training roadmap tailored to your sport.",
   },
   {
     title: "Return-to-Play Checkpoint",
