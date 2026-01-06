@@ -38,14 +38,28 @@ export default function Contact() {
             />
           </div>
           <div className="glass-panel rounded-3xl border border-white/10 p-8 shadow-card">
-            <form className="space-y-4">
+            <form
+              className="space-y-4"
+              action="https://formsubmit.co/theeaxperience@gmail.com"
+              method="POST"
+            >
+              <input
+                type="hidden"
+                name="_subject"
+                value="New Contact from Website"
+              />
+              <input type="hidden" name="_captcha" value="false" />
+              {/* Optional: Add a custom thank you page redirect if needed, otherwise it uses default */}
+              {/* <input type="hidden" name="_next" value="http://localhost:5173/thanks" /> */}
               <div>
                 <label className="block text-sm font-semibold text-white">
                   Name
                 </label>
                 <input
                   type="text"
+                  name="name"
                   placeholder="Your name"
+                  required
                   className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-white outline-none focus:border-brand-orange"
                 />
               </div>
@@ -56,7 +70,9 @@ export default function Contact() {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     placeholder="you@email.com"
+                    required
                     className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-white outline-none focus:border-brand-orange"
                   />
                 </div>
@@ -66,6 +82,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="tel"
+                    name="phone"
                     placeholder="Optional"
                     className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-white outline-none focus:border-brand-orange"
                   />
@@ -75,7 +92,10 @@ export default function Contact() {
                 <label className="block text-sm font-semibold text-white">
                   What are you looking for?
                 </label>
-                <select className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-white outline-none focus:border-brand-orange">
+                <select
+                  name="interest"
+                  className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-white outline-none focus:border-brand-orange"
+                >
                   <option className="bg-[#07090f] text-white">
                     Sport Performance
                   </option>
@@ -98,14 +118,19 @@ export default function Contact() {
                   Message
                 </label>
                 <textarea
+                  name="message"
                   rows="4"
+                  required
                   placeholder="Goals, timelines, injuries, or questions..."
                   className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-white outline-none focus:border-brand-orange"
                 />
               </div>
-              <CTAButton to="#" className="w-full">
+              <button
+                type="submit"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-orange px-5 py-3 text-sm font-semibold text-black shadow-glow transition transform hover:-translate-y-0.5"
+              >
                 Send message
-              </CTAButton>
+              </button>
             </form>
           </div>
         </div>
