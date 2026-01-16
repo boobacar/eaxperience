@@ -1,17 +1,20 @@
-import { Outlet, useLocation } from "react-router-dom"
-import { useEffect } from "react"
-import Header from "./Header"
-import Footer from "./Footer"
+import { Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import Header from "./Header";
+import Footer from "./Footer";
+
+import NewsletterModal from "./NewsletterModal";
 
 export default function Layout() {
-  const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }, [location.pathname])
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen bg-[#07090f] text-white">
+      <NewsletterModal />
       <div className="pointer-events-none fixed inset-0 opacity-40">
         <div className="grid-overlay absolute inset-0" />
         <div className="absolute left-10 top-10 h-64 w-64 rounded-full bg-brand-orange/10 blur-3xl" />
@@ -23,5 +26,5 @@ export default function Layout() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }

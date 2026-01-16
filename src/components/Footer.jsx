@@ -97,7 +97,8 @@ export default function Footer() {
           </h4>
           <div className="mt-3 space-y-1 text-sm text-white/80">
             <p>Hours: 8am–7pm (Mon–Fri)</p>
-            <p>New York City</p>
+            <p>117 St. Ann’s Ave, Bronx, NY 10454</p>
+            <p>129 W 29th St. Floor 2, NY, NY 10001</p>
             <p>Email: theeaxperience@gmail.com</p>
             <p>Phone: 718-578-2763</p>
           </div>
@@ -137,16 +138,31 @@ export default function Footer() {
             Get program drops, event invites, and training notes. We keep it
             tight and actionable.
           </p>
-          <div className="flex items-center gap-2 rounded-2xl bg-white/5 p-2">
+          <form
+            action="https://formsubmit.co/theeaxperience@gmail.com"
+            method="POST"
+            className="flex items-center gap-2 rounded-2xl bg-white/5 p-2"
+          >
+            <input
+              type="hidden"
+              name="_subject"
+              value="New Footer Newsletter Subscriber"
+            />
+            <input type="hidden" name="_captcha" value="false" />
             <input
               type="email"
+              name="email"
+              required
               placeholder="Your email"
               className="w-full bg-transparent px-3 py-2 text-sm text-white outline-none"
             />
-            <button className="rounded-xl bg-brand-orange px-4 py-2 text-xs font-semibold text-black">
+            <button
+              type="submit"
+              className="rounded-xl bg-brand-orange px-4 py-2 text-xs font-semibold text-black"
+            >
               Join
             </button>
-          </div>
+          </form>
           <div className="flex items-center gap-2">
             {socials.map((social) => (
               <a
