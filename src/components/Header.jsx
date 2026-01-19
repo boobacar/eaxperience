@@ -168,7 +168,7 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="lg:hidden border-t border-white/5 bg-[#07090f]/95 backdrop-blur-xl">
+        <div className="lg:hidden fixed left-0 right-0 top-[88px] border-t border-white/5 bg-[#07090f]/95 backdrop-blur-xl max-h-[calc(100vh-6rem)] overflow-y-auto shadow-2xl pb-10">
           <div className="section-shell flex flex-col gap-2 py-4">
             {navLinks.map((link) => (
               <div key={link.label} className="flex flex-col gap-2">
