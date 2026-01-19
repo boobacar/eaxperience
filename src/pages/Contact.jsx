@@ -141,8 +141,8 @@ export default function Contact() {
           <p>Hours: 8am–7pm (Mon–Fri)</p>
           <div className="space-y-1">
             <p className="font-semibold text-white">Locations:</p>
-            <p>1. 117 St. Ann’s Ave, Bronx, NY 10454</p>
-            <p>2. 129 W 29th St. Floor 2, NY, NY 10001</p>
+            <p>1. Bronx: 117 St. Ann’s Ave, Bronx, NY 10454</p>
+            <p>2. Manhattan: 129 W 29th St., New York, NY 10001</p>
             <p className="text-white/60 text-xs uppercase tracking-wide mt-1">
               + Hybrid coaching worldwide
             </p>

@@ -131,8 +131,8 @@ export default function Footer() {
           </h4>
           <div className="mt-3 space-y-1 text-sm text-white/80">
             <p>Hours: 8am–7pm (Mon–Fri)</p>
-            <p>117 St. Ann’s Ave, Bronx, NY 10454</p>
-            <p>129 W 29th St. Floor 2, NY, NY 10001</p>
+            <p>Bronx: 117 St. Ann’s Ave, Bronx, NY 10454</p>
+            <p>Manhattan: 129 W 29th St., New York, NY 10001</p>
             <p>Email: theeaxperience@gmail.com</p>
             <p>Phone: 718-578-2763</p>
           </div>
