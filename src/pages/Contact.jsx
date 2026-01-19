@@ -40,7 +40,7 @@ export default function Contact() {
           <div className="glass-panel rounded-3xl border border-white/10 p-8 shadow-card">
             <form
               className="space-y-4"
-              action="https://formsubmit.co/theeaxperience@gmail.com"
+              action="https://formsubmit.co/contact@eaxperience.com"
               method="POST"
             >
               <input
@@ -136,7 +136,7 @@ export default function Contact() {
         </div>
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-white/80">
           <p className="font-semibold text-white">Direct contact</p>
-          <p>Email: theeaxperience@gmail.com</p>
+          <p>Email: contact@eaxperience.com</p>
           <p>Phone: 718-578-2763</p>
           <p>Hours: 8am–7pm (Mon–Fri)</p>
           <div className="space-y-1">
