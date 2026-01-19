@@ -65,7 +65,7 @@ export const navLinks = [
 const rawServices = [
   {
     slug: "sport-performance",
-    title: "Sport Performance (Semi-private 2–4 athletes)",
+    title: "Sport Performance (Semi-private 2–5 athletes)",
     summary:
       "Explosive performance training engineered for athletes who want to move cleaner, get stronger, and compete without the nagging injuries.",
     outcomes: [
@@ -93,7 +93,7 @@ const rawServices = [
   },
   {
     slug: "general-fitness",
-    title: "General Fitness (Semi-private 2–4 clients)",
+    title: "General Fitness (Semi-private 2–5 clients)",
     summary:
       "Science-backed training for people who want to age athletically: build muscle, upgrade body composition, and protect long-term health.",
     outcomes: [
@@ -315,24 +315,29 @@ export const blogPosts = [
 
 export const pricingPlans = [
   {
+    name: "Free Consultation",
+    price: "$0",
+    details: "15 min video call",
+  },
+  {
     name: "Base (1x/week)",
     price: "$199 / month",
-    details: "4 sessions/month • 3-month minimum",
+    details: "4 sessions/month • Semi-private 2-5 athletes",
   },
   {
     name: "Plus (2x/week)",
     price: "$349 / month",
-    details: "8 sessions/month",
+    details: "8 sessions/month • Semi-private 2-5 athletes",
   },
   {
     name: "Pro (3x/week)",
     price: "$499 / month",
-    details: "12 sessions/month",
+    details: "12 sessions/month • Semi-private 2-5 athletes",
   },
   {
-    name: "Unlimited Access",
-    price: "$579 / month",
-    details: "16 sessions/month • Semi-private",
+    name: "Super (4x/week)",
+    price: "$629 / month",
+    details: "16 sessions/month • Semi-private 2-5 athletes",
   },
   {
     name: "One-on-One Coaching",
@@ -342,12 +347,17 @@ export const pricingPlans = [
   {
     name: "Performance Physical Therapy",
     price: "$150–$1,050",
-    details: "1–8 sessions/month",
+    details: "Free Consult • 1x ($150), 4x ($570), 8x ($1,050)",
   },
   {
-    name: "Remote Coaching (Live)",
-    price: "$149–$249",
-    details: "1–2x/week live online",
+    name: "Remote 1-on-1",
+    price: "$100 / session",
+    details: "Online remote session",
+  },
+  {
+    name: "Remote Group",
+    price: "$149–$279 / month",
+    details: "1x/week ($149) or 2x/week ($279)",
   },
   {
     name: "Async Microdose Coaching",

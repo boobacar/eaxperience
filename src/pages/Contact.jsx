@@ -28,12 +28,10 @@ export default function Contact() {
           <div className="glass-panel rounded-3xl border border-white/10 p-4 md:p-6 shadow-card">
             <div
               className="calendly-inline-widget"
-              data-url="https://calendly.com/theeaxperience/30min?hide_gdpr_banner=1&background_color=07090f&text_color=ffffff&primary_color=ff9c2b"
+              data-url="https://calendly.com/theeaxperience/15min?background_color=050505&text_color=fd670a"
               style={{
                 minWidth: 320,
-                height: 840,
-                marginTop: " 0",
-                marginBottom: "0",
+                height: 700,
               }}
             />
           </div>
