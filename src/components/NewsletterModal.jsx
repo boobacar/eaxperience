@@ -3,6 +3,8 @@ import { X } from "lucide-react";
 
 export default function NewsletterModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle, loading, success, error
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     // Check if the user has already seen the modal
@@ -17,6 +19,41 @@ export default function NewsletterModal() {
       return () => clearTimeout(timer);
     }
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const email = formData.get("email_address");
+
+    if (!email) return;
+
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      // ConvertKit form submission
+      const response = await fetch(
+        "https://app.kit.com/forms/8986153/subscriptions",
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      if (response.ok) {
+        setStatus("success");
+        sessionStorage.setItem("hasSeenNewsletterModal", "true");
+        // Optional: close modal after success
+        setTimeout(() => setIsOpen(false), 3000);
+      } else {
+        throw new Error("Subscription failed");
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus("error");
+      setErrorMessage("Something went wrong. Please try again.");
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -45,31 +82,44 @@ export default function NewsletterModal() {
             </p>
           </div>
 
-          <form
-            action="https://formsubmit.co/theeaxperience@gmail.com"
-            method="POST"
-            className="space-y-3"
-          >
-            <input
-              type="hidden"
-              name="_subject"
-              value="New Newsletter Subscriber (Modal)"
-            />
-            <input type="hidden" name="_captcha" value="false" />
-            <input
-              type="email"
-              name="email"
-              placeholder="Your email address"
-              required
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-brand-orange transition"
-            />
-            <button
-              type="submit"
-              className="w-full rounded-xl bg-brand-orange px-4 py-3 text-sm font-bold text-black hover:bg-white transition transform active:scale-95"
-            >
-              Subscribe Now
-            </button>
-          </form>
+          {status === "success" ? (
+            <div className="rounded-xl bg-green-500/10 p-4 text-green-400">
+              <p className="font-bold">Success!</p>
+              <p className="text-sm">
+                Now check your email to confirm your subscription.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <input
+                type="email"
+                name="email_address"
+                placeholder="Your email address"
+                required
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-brand-orange transition"
+              />
+
+              {status === "error" && (
+                <p className="text-xs text-red-500">{errorMessage}</p>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="w-full rounded-xl bg-brand-orange px-4 py-3 text-sm font-bold text-black hover:bg-white transition transform active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {status === "loading" ? (
+                  <div className="flex justify-center gap-1">
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-black/60 delay-0"></span>
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-black/60 delay-100"></span>
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-black/60 delay-200"></span>
+                  </div>
+                ) : (
+                  "Subscribe Now"
+                )}
+              </button>
+            </form>
+          )}
 
           <p className="text-xs text-white/40">
             No spam. Unsubscribe at any time.

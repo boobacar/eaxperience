@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const IconInstagram = (props) => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
@@ -68,6 +69,39 @@ const socials = [
 ];
 
 export default function Footer() {
+  const [status, setStatus] = useState("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const email = formData.get("email_address");
+
+    if (!email) return;
+
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch(
+        "https://app.kit.com/forms/8986153/subscriptions",
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      if (response.ok) {
+        setStatus("success");
+      } else {
+        throw new Error("Subscription failed");
+      }
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage("Something went wrong");
+    }
+  };
+
   return (
     <footer className="mt-24 border-t border-white/5 bg-gradient-to-b from-transparent via-[#0a0d14] to-[#05070c]">
       <div className="section-shell grid gap-10 py-14 lg:grid-cols-4">
@@ -138,31 +172,34 @@ export default function Footer() {
             Get program drops, event invites, and training notes. We keep it
             tight and actionable.
           </p>
-          <form
-            action="https://formsubmit.co/theeaxperience@gmail.com"
-            method="POST"
-            className="flex items-center gap-2 rounded-2xl bg-white/5 p-2"
-          >
-            <input
-              type="hidden"
-              name="_subject"
-              value="New Footer Newsletter Subscriber"
-            />
-            <input type="hidden" name="_captcha" value="false" />
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="Your email"
-              className="w-full bg-transparent px-3 py-2 text-sm text-white outline-none"
-            />
-            <button
-              type="submit"
-              className="rounded-xl bg-brand-orange px-4 py-2 text-xs font-semibold text-black"
+          {status === "success" ? (
+            <div className="text-sm font-bold text-green-400">
+              Check your email to confirm!
+            </div>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="flex items-center gap-2 rounded-2xl bg-white/5 p-2"
             >
-              Join
-            </button>
-          </form>
+              <input
+                type="email"
+                name="email_address"
+                required
+                placeholder="Your email"
+                className="w-full bg-transparent px-3 py-2 text-sm text-white outline-none"
+              />
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="rounded-xl bg-brand-orange px-4 py-2 text-xs font-semibold text-black disabled:opacity-50"
+              >
+                {status === "loading" ? "..." : "Join"}
+              </button>
+            </form>
+          )}
+          {status === "error" && (
+            <p className="text-xs text-red-500">{errorMessage}</p>
+          )}
           <div className="flex items-center gap-2">
             {socials.map((social) => (
               <a
