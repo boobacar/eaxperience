@@ -315,59 +315,24 @@ export const blogPosts = [
 
 export const pricingPlans = [
   {
-    name: "Free Consultation",
-    price: "$0",
-    details: "15 min video call",
+    name: "Semi Private Training",
+    price: "Starting from $199 / month",
+    details: "Semi-private 2-5 athletes",
   },
   {
-    name: "Base (1x/week)",
-    price: "$199 / month",
-    details: "4 sessions/month • Semi-private 2-5 athletes",
+    name: "Performance Therapy",
+    price: "$131–150 / session",
+    details: "1-on-1 treatment & rehab",
   },
   {
-    name: "Plus (2x/week)",
-    price: "$349 / month",
-    details: "8 sessions/month • Semi-private 2-5 athletes",
+    name: "One on One (In-person/Online)",
+    price: "Starting at $100–120 / session",
+    details: "Personalized coaching",
   },
   {
-    name: "Pro (3x/week)",
-    price: "$499 / month",
-    details: "12 sessions/month • Semi-private 2-5 athletes",
-  },
-  {
-    name: "Super (4x/week)",
-    price: "$629 / month",
-    details: "16 sessions/month • Semi-private 2-5 athletes",
-  },
-  {
-    name: "One-on-One Coaching",
-    price: "$120 / session",
-    details: "60-minute personalized session",
-  },
-  {
-    name: "Performance Physical Therapy",
-    price: "$150–$1,050",
-    details: "Free Consult • 1x ($150), 4x ($570), 8x ($1,050)",
-  },
-  {
-    name: "Remote 1-on-1",
-    price: "$100 / session",
-    details: "Online remote session",
-  },
-  {
-    name: "Remote Group",
-    price: "$149–$279 / month",
-    details: "1x/week ($149) or 2x/week ($279)",
-  },
-  {
-    name: "Async Microdose Coaching",
-    price: "$79",
-    details: "Weekly program + messaging",
-  },
-  {
-    name: "Ambassador Plan",
-    price: "Contact for pricing",
-    details: "Elite selective athlete track",
+    name: "Group Online",
+    price: "Starting at $149 / month",
+    details: "Remote programming",
   },
 ];
 
