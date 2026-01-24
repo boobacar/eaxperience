@@ -68,9 +68,34 @@ const socials = [
   },
 ];
 
+const IconCode = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+    <path
+      d="M16 18l6-6-6-6M8 6l-6 6 6 6"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const IconX = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+    <path
+      d="M18 6L6 18M6 6l12 12"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export default function Footer() {
   const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSignatureModalOpen, setSignatureModalOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -215,9 +240,67 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="border-t border-white/5 py-6 text-center text-xs uppercase tracking-[0.2em] text-white/40">
-        © 2025 EAXperience. Built for transformation.
+      <div className="border-t border-white/5 py-6 text-center">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+          © 2025 EAXperience. Built for transformation.
+        </p>
+        <div className="mt-4 flex items-center justify-center text-sm text-white/40">
+          Designed by
+          <button
+            onClick={() => setSignatureModalOpen(true)}
+            className="ml-1 animate-bounce font-bold text-brand-orange hover:underline"
+          >
+            Fallcon Tech
+          </button>
+        </div>
       </div>
+
+      {/* Signature Modal */}
+      {isSignatureModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm">
+          <div className="relative w-full max-w-sm rounded-2xl border border-white/10 bg-[#0a0d14] p-8 text-center shadow-2xl shadow-brand-orange/10">
+            <button
+              onClick={() => setSignatureModalOpen(false)}
+              className="absolute right-4 top-4 text-white/40 transition hover:text-white"
+            >
+              <IconX className="h-5 w-5" />
+            </button>
+
+            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-brand-orange/10 text-brand-orange">
+              <IconCode className="h-10 w-10" />
+            </div>
+
+            <div className="space-y-4 text-sm text-white/80">
+              <div className="flex items-center justify-center gap-2">
+                <a
+                  href="tel:+221776260020"
+                  className="transition hover:text-brand-orange hover:underline"
+                >
+                  +221 77 626 00 20
+                </a>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <a
+                  href="mailto:info@fallcontech.com"
+                  className="transition hover:text-brand-orange hover:underline"
+                >
+                  info@fallcontech.com
+                </a>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <a
+                  href="https://www.fallcontech.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition hover:text-brand-orange hover:underline"
+                >
+                  www.fallcontech.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </footer>
   );
 }
