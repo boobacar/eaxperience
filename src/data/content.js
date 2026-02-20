@@ -15,6 +15,7 @@ import img14 from "../assets/session/a650784e7fcb2bf3e6a4314fae5e58c6_Ea-Xperien
 import blogKids from "../assets/kids-sports.jpg";
 import blogStrength from "../assets/muscle-and-strength.jpg";
 import blogBurnFat from "../assets/burn-fat.jpg";
+import blogHeartDiseases from "../assets/heart-diseases.jpg";
 
 const sessionImages = [
   img1,
@@ -170,6 +171,77 @@ export const events = [
 ];
 
 export const blogPosts = [
+  {
+    slug: "understanding-heart-health",
+    date: "February 20, 2026",
+    title:
+      "Understanding Heart Health: Common Conditions, Risk Factors and Steps to Protect Your Heart",
+    excerpt:
+      "Heart disease remains a leading cause of illness, but many cases are preventable with early screening, exercise, nutrition, and consistent lifestyle change.",
+    cover: blogHeartDiseases,
+    tags: ["Heart health", "Prevention", "Wellness"],
+    readingTime: "10 min read",
+    sections: [
+      {
+        heading: "Why heart health deserves attention now",
+        body: [
+          "Heart disease remains one of the leading causes of morbidity and mortality in the United States.",
+          "Recent CDC data shows nearly half of U.S. adults (about 47.7%) were living with hypertension between August 2021 and August 2023, and more than half of people with high blood pressure are unaware of their diagnosis.",
+        ],
+      },
+      {
+        heading: "Common cardiovascular conditions",
+        body: [
+          "Hypertension (high blood pressure) is often silent but can increase risk for major cardiovascular events when untreated.",
+          "Arteriosclerosis and atherosclerosis involve loss of arterial elasticity and plaque buildup, which can narrow blood vessels over time.",
+          "Angina is chest pain linked to reduced oxygen supply to the heart muscle and may be triggered by exertion, stress, large meals, or temperature extremes.",
+          "A myocardial infarction (heart attack) occurs when blood flow to heart muscle is blocked, requiring immediate medical attention.",
+          "Heart failure develops when the heart cannot pump or fill effectively and may present as systolic, diastolic, left-sided, or right-sided failure.",
+        ],
+      },
+      {
+        heading: "Risk factors you can act on",
+        body: [
+          "Several risk factors are modifiable, including smoking, physical inactivity, high sodium intake, obesity, poor glucose control, alcohol overuse, and unmanaged stress.",
+          "Family history and age also matter, but lifestyle choices and early screening can still significantly reduce risk.",
+        ],
+        bullets: [
+          "Check blood pressure regularly",
+          "Prioritize heart-healthy eating (DASH-style patterns)",
+          "Exercise weekly with both aerobic and strength work",
+          "Manage sleep, stress, and recovery",
+          "Work with a healthcare provider for medication and follow-up when needed",
+        ],
+      },
+      {
+        heading: "Evidence-based exercise recommendations",
+        body: [
+          "Research supports structured physical activity as a central part of cardiovascular prevention and management.",
+        ],
+        bullets: [
+          "Increase daily movement (adding 1,000–2,000 steps/day can help)",
+          "Aerobic training: 20–60 minutes, 3–5x/week",
+          "Resistance training: 45–60 minutes, 3x/week",
+          "Breathing/inspiratory muscle work can complement conditioning",
+          "Combined programs (aerobic + resistance) improve outcomes",
+        ],
+      },
+      {
+        heading: "Simple functional checks and behavior change",
+        body: [
+          "Tools like the 30-second sit-to-stand challenge can help track lower-body endurance and progress over time.",
+          "Long-term success often depends on behavior change readiness. The transtheoretical model (precontemplation to maintenance) can help you choose realistic next steps.",
+        ],
+      },
+      {
+        heading: "Bottom line",
+        body: [
+          "Heart disease is not inevitable. Consistent habits—screening, smart exercise, balanced nutrition, and medical follow-up—can dramatically improve healthspan and quality of life.",
+          "Start with one action today: check your blood pressure, take a brisk walk, and build a plan with your healthcare provider.",
+        ],
+      },
+    ],
+  },
   {
     slug: "early-specialization-kids",
     date: "January 2, 2025",
