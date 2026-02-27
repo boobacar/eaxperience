@@ -1,18 +1,6 @@
-import { useEffect } from "react";
 import SectionHeader from "../components/SectionHeader";
-import CTAButton from "../components/CTAButton";
 
 export default function Contact() {
-  useEffect(() => {
-    const src = "https://assets.calendly.com/assets/external/widget.js";
-    if (!document.querySelector(`script[src="${src}"]`)) {
-      const script = document.createElement("script");
-      script.src = src;
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, []);
-
   return (
     <div className="space-y-14 pt-12">
       <section className="section-shell">
@@ -24,18 +12,8 @@ export default function Contact() {
           />
         </div>
 
-        <div className="space-y-6 py-10 md:grid md:grid-cols-2 md:gap-8">
-          <div className="glass-panel rounded-3xl border border-white/10 p-4 md:p-6 shadow-card">
-            <div
-              className="calendly-inline-widget"
-              data-url="https://calendly.com/theeaxperience/15min?background_color=050505&text_color=fd670a"
-              style={{
-                minWidth: 320,
-                height: 700,
-              }}
-            />
-          </div>
-          <div className="glass-panel rounded-3xl border border-white/10 p-8 shadow-card">
+        <div className="space-y-6 py-10">
+          <div className="glass-panel rounded-3xl border border-white/10 p-8 shadow-card max-w-3xl mx-auto">
             <form
               className="space-y-4"
               action="https://formsubmit.co/contact@eaxperience.com"
@@ -47,8 +25,12 @@ export default function Contact() {
                 value="New Contact from Website"
               />
               <input type="hidden" name="_captcha" value="false" />
-              {/* Optional: Add a custom thank you page redirect if needed, otherwise it uses default */}
-              {/* <input type="hidden" name="_next" value="http://localhost:5173/thanks" /> */}
+              <input
+                type="hidden"
+                name="_next"
+                value="https://calendly.com/theeaxperience/15min"
+              />
+
               <div>
                 <label className="block text-sm font-semibold text-white">
                   Name
@@ -132,6 +114,7 @@ export default function Contact() {
             </form>
           </div>
         </div>
+
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-white/80">
           <p className="font-semibold text-white">Direct contact</p>
           <p>Email: contact@eaxperience.com</p>
