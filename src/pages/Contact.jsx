@@ -1,6 +1,82 @@
+import { useMemo, useState } from "react";
+import confetti from "canvas-confetti";
 import SectionHeader from "../components/SectionHeader";
 
+const initialForm = {
+  name: "",
+  email: "",
+  phone: "",
+  interest: "Sport Performance",
+  message: "",
+};
+
 export default function Contact() {
+  const [form, setForm] = useState(initialForm);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const successMessage = useMemo(
+    () =>
+      "Your message was sent successfully. We’ll get back to you shortly.",
+    []
+  );
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const fireConfetti = () => {
+    const defaults = {
+      spread: 70,
+      ticks: 120,
+      gravity: 0.95,
+      decay: 0.95,
+      startVelocity: 28,
+      colors: ["#fd670a", "#ffffff", "#f7b267", "#0f172a"],
+    };
+
+    confetti({ ...defaults, particleCount: 120, origin: { y: 0.6 } });
+    setTimeout(() => {
+      confetti({ ...defaults, particleCount: 60, origin: { x: 0.2, y: 0.7 } });
+      confetti({ ...defaults, particleCount: 60, origin: { x: 0.8, y: 0.7 } });
+    }, 200);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
+    setIsSuccess(false);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}));
+        throw new Error(payload?.message || "Failed to send your message.");
+      }
+
+      setIsSuccess(true);
+      setForm(initialForm);
+      fireConfetti();
+    } catch (submitError) {
+      setError(
+        submitError?.message ||
+          "Something went wrong. Please try again or email us directly."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="space-y-14 pt-12">
       <section className="section-shell">
@@ -14,102 +90,95 @@ export default function Contact() {
 
         <div className="space-y-6 py-10">
           <div className="glass-panel rounded-3xl border border-white/10 p-8 shadow-card max-w-3xl mx-auto">
-            <form
-              className="space-y-4"
-              action="https://formsubmit.co/contact@eaxperience.com"
-              method="POST"
-            >
-              <input
-                type="hidden"
-                name="_subject"
-                value="New Contact from Website"
-              />
-              <input type="hidden" name="_captcha" value="false" />
-              <input
-                type="hidden"
-                name="_next"
-                value="https://calendly.com/theeaxperience/15min"
-              />
-
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
-                <label className="block text-sm font-semibold text-white">
-                  Name
-                </label>
+                <label className="block text-sm font-semibold text-white">Name</label>
                 <input
                   type="text"
                   name="name"
                   placeholder="Your name"
                   required
+                  value={form.name}
+                  onChange={handleChange}
                   className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-white outline-none focus:border-brand-orange"
                 />
               </div>
-              <div className="">
+
+              <div>
                 <div>
-                  <label className="block text-sm font-semibold text-white">
-                    Email
-                  </label>
+                  <label className="block text-sm font-semibold text-white">Email</label>
                   <input
                     type="email"
                     name="email"
                     placeholder="you@email.com"
                     required
+                    value={form.email}
+                    onChange={handleChange}
                     className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-white outline-none focus:border-brand-orange"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-white">
-                    Phone
-                  </label>
+                  <label className="block text-sm font-semibold text-white">Phone</label>
                   <input
                     type="tel"
                     name="phone"
                     placeholder="Optional"
+                    value={form.phone}
+                    onChange={handleChange}
                     className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-white outline-none focus:border-brand-orange"
                   />
                 </div>
               </div>
+
               <div>
                 <label className="block text-sm font-semibold text-white">
                   What are you looking for?
                 </label>
                 <select
                   name="interest"
+                  value={form.interest}
+                  onChange={handleChange}
                   className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-white outline-none focus:border-brand-orange"
                 >
-                  <option className="bg-[#07090f] text-white">
-                    Sport Performance
-                  </option>
-                  <option className="bg-[#07090f] text-white">
-                    Physical Therapy
-                  </option>
-                  <option className="bg-[#07090f] text-white">
-                    General Fitness
-                  </option>
-                  <option className="bg-[#07090f] text-white">
-                    Team / School Consultation
-                  </option>
-                  <option className="bg-[#07090f] text-white">
-                    Partner / Collaboration
-                  </option>
+                  <option className="bg-[#07090f] text-white">Sport Performance</option>
+                  <option className="bg-[#07090f] text-white">Physical Therapy</option>
+                  <option className="bg-[#07090f] text-white">General Fitness</option>
+                  <option className="bg-[#07090f] text-white">Team / School Consultation</option>
+                  <option className="bg-[#07090f] text-white">Partner / Collaboration</option>
                 </select>
               </div>
+
               <div>
-                <label className="block text-sm font-semibold text-white">
-                  Message
-                </label>
+                <label className="block text-sm font-semibold text-white">Message</label>
                 <textarea
                   name="message"
                   rows="4"
                   required
+                  value={form.message}
+                  onChange={handleChange}
                   placeholder="Goals, timelines, injuries, or questions..."
                   className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-white outline-none focus:border-brand-orange"
                 />
               </div>
+
+              {error ? (
+                <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                  {error}
+                </div>
+              ) : null}
+
+              {isSuccess ? (
+                <div className="rounded-xl border border-brand-orange/40 bg-brand-orange/10 px-4 py-3 text-sm text-white">
+                  {successMessage}
+                </div>
+              ) : null}
+
               <button
                 type="submit"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-orange px-5 py-3 text-sm font-semibold text-black shadow-glow transition transform hover:-translate-y-0.5"
+                disabled={isSubmitting}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-orange px-5 py-3 text-sm font-semibold text-black shadow-glow transition transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
               >
-                Send message
+                {isSubmitting ? "Sending..." : "Send message"}
               </button>
             </form>
           </div>
