@@ -14,6 +14,7 @@ const initialForm = {
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const CALENDLY_EVENT_URL = "https://calendly.com/theeaxperience/15min";
 
 export default function Contact() {
   const [form, setForm] = useState(initialForm);
@@ -23,7 +24,7 @@ export default function Contact() {
 
   const successMessage = useMemo(
     () =>
-      "Your message was sent successfully. We’ll get back to you shortly.",
+      "Your message was sent successfully. Redirecting you to book your Calendly event...",
     []
   );
 
@@ -79,6 +80,16 @@ export default function Contact() {
       setIsSuccess(true);
       setForm(initialForm);
       fireConfetti();
+
+      const calendlyUrl = new URL(CALENDLY_EVENT_URL);
+      calendlyUrl.searchParams.set("name", form.name);
+      calendlyUrl.searchParams.set("email", form.email);
+      calendlyUrl.searchParams.set("a1", form.phone || "");
+      calendlyUrl.searchParams.set("a2", form.interest || "");
+
+      setTimeout(() => {
+        window.location.assign(calendlyUrl.toString());
+      }, 1400);
     } catch (submitError) {
       setError(
         submitError?.message ||
