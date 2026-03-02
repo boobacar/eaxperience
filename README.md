@@ -15,22 +15,25 @@ The React Compiler is not enabled on this template because of its impact on dev 
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
-## Contact form email setup (SMTP)
+## Contact form email setup (EmailJS)
 
-The contact form now sends data to `/api/contact`, and the server sends an HTML email.
+The contact form now uses EmailJS directly from the frontend.
 
 Create these environment variables in Vercel (or your host):
 
-- `EMAIL_SMTP_HOST` (ex: `smtp.gmail.com`)
-- `EMAIL_SMTP_PORT` (ex: `465` for SSL or `587` for TLS)
-- `EMAIL_SMTP_USER` (SMTP username / sender email)
-- `EMAIL_SMTP_PASS` (SMTP password or app password)
-- `CONTACT_TO` (destination inbox, ex: `boubsfal@gmail.com`)
+- `VITE_EMAILJS_SERVICE_ID`
+- `VITE_EMAILJS_TEMPLATE_ID`
+- `VITE_EMAILJS_PUBLIC_KEY`
 
-### Gmail quick setup
+### EmailJS mapping expected by the form
 
-- Use `smtp.gmail.com`
-- Use a Google **App Password** (not your normal password)
-- For SSL set port `465`
+The form sends these template variables:
 
-If `CONTACT_TO` is not set, the API defaults to `boubsfal@gmail.com`.
+- `{{name}}`
+- `{{email}}`
+- `{{phone}}`
+- `{{interest}}`
+- `{{message}}`
+- `{{submitted_at}}`
+
+After adding variables, redeploy the site.

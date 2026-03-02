@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import emailjs from "@emailjs/browser";
 import confetti from "canvas-confetti";
 import SectionHeader from "../components/SectionHeader";
 
@@ -9,6 +10,10 @@ const initialForm = {
   interest: "Sport Performance",
   message: "",
 };
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function Contact() {
   const [form, setForm] = useState(initialForm);
@@ -51,18 +56,25 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      if (!response.ok) {
-        const payload = await response.json().catch(() => ({}));
-        throw new Error(payload?.message || "Failed to send your message.");
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+        throw new Error("Email service is not configured yet.");
       }
+
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: form.name,
+          email: form.email,
+          phone: form.phone || "-",
+          interest: form.interest,
+          message: form.message,
+          submitted_at: new Date().toLocaleString(),
+        },
+        {
+          publicKey: EMAILJS_PUBLIC_KEY,
+        }
+      );
 
       setIsSuccess(true);
       setForm(initialForm);
