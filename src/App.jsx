@@ -11,6 +11,7 @@ import BlogPost from "./pages/BlogPost"
 import BookSuggestions from "./pages/BookSuggestions"
 import About from "./pages/About"
 import Contact from "./pages/Contact"
+import AdminBlog from "./pages/AdminBlog"
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="resources/books" element={<BookSuggestions />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="admin/blog" element={<AdminBlog />} />
         <Route path="*" element={<Home />} />
       </Route>
     </Routes>

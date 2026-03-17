@@ -1,14 +1,21 @@
-import { Link } from "react-router-dom"
-import SectionHeader from "../components/SectionHeader"
-import { blogPosts } from "../data/content"
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import SectionHeader from "../components/SectionHeader";
+import { loadBlogPosts } from "../data/blogService";
 
 export default function Blog() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    loadBlogPosts().then(setPosts);
+  }, []);
+
   return (
     <div className="space-y-10 pb-12">
       <section className="section-shell space-y-8">
         <SectionHeader eyebrow="Resources" title="Blogs" align="center" />
         <div className="grid gap-6 lg:grid-cols-3">
-          {blogPosts.map((post) => (
+          {posts.map((post) => (
             <Link
               key={post.slug}
               to={`/resources/blog/${post.slug}`}
@@ -28,6 +35,7 @@ export default function Blog() {
                   <span className="text-brand-orange/90">{post.readingTime}</span>
                 </div>
                 <h3 className="font-display text-2xl text-white leading-snug">{post.title}</h3>
+                <p className="text-xs uppercase tracking-[0.2em] text-white/50">By {post.author || "EAXperience Team"}</p>
                 <p className="text-sm text-white/70">{post.excerpt}</p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {post.tags.map((tag) => (
@@ -42,5 +50,5 @@ export default function Blog() {
         </div>
       </section>
     </div>
-  )
+  );
 }

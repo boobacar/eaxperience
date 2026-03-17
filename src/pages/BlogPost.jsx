@@ -1,7 +1,8 @@
-import { Link, useParams } from "react-router-dom"
-import SectionHeader from "../components/SectionHeader"
-import CTAButton from "../components/CTAButton"
-import { blogPosts } from "../data/content"
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import SectionHeader from "../components/SectionHeader";
+import CTAButton from "../components/CTAButton";
+import { loadBlogPosts } from "../data/blogService";
 
 const BulletList = ({ items }) => (
   <ul className="space-y-2 text-sm text-white/80">
@@ -12,11 +13,17 @@ const BulletList = ({ items }) => (
       </li>
     ))}
   </ul>
-)
+);
 
 export default function BlogPost() {
-  const { slug } = useParams()
-  const post = blogPosts.find((p) => p.slug === slug)
+  const { slug } = useParams();
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    loadBlogPosts().then(setPosts);
+  }, []);
+
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) {
     return (
@@ -26,7 +33,7 @@ export default function BlogPost() {
           Back to blog
         </CTAButton>
       </div>
-    )
+    );
   }
 
   return (
@@ -42,6 +49,7 @@ export default function BlogPost() {
         </div>
 
         <SectionHeader eyebrow="Blog" title={post.title} subtitle={post.excerpt} />
+        <p className="text-xs uppercase tracking-[0.25em] text-white/60">By {post.author || "EAXperience Team"}</p>
 
         <div className="overflow-hidden rounded-3xl border border-white/10 shadow-card">
           <div className="relative aspect-[16/7] bg-white/5">
@@ -62,11 +70,11 @@ export default function BlogPost() {
       <section className="section-shell">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,0.9fr)]">
           <article className="glass-panel rounded-3xl border border-white/10 p-7 md:p-10 space-y-8">
-            {post.sections.map((section) => (
-              <div key={section.heading} className="space-y-3">
-                <h2 className="font-display text-2xl text-white">{section.heading}</h2>
+            {post.sections.map((section, idx) => (
+              <div key={section.heading || idx} className="space-y-3">
+                {section.heading ? <h2 className="font-display text-2xl text-white">{section.heading}</h2> : null}
                 <div className="space-y-3 text-sm leading-relaxed text-white/80">
-                  {section.body.map((para) => (
+                  {(section.body || []).map((para) => (
                     <p key={para}>{para}</p>
                   ))}
                 </div>
@@ -91,7 +99,7 @@ export default function BlogPost() {
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
               <p className="text-xs uppercase tracking-[0.25em] text-brand-orange">Next reads</p>
               <div className="mt-3 space-y-3 text-sm">
-                {blogPosts
+                {posts
                   .filter((p) => p.slug !== post.slug)
                   .slice(0, 2)
                   .map((p) => (
@@ -110,6 +118,5 @@ export default function BlogPost() {
         </div>
       </section>
     </div>
-  )
+  );
 }
-

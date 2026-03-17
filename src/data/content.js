@@ -582,7 +582,7 @@ export const testimonials = [
 
 export const stats = [
   { label: "Athletes served", value: "800+" },
-  { label: "Avg. pain reduction", value: "72%" },
+  { label: "Avg. pain reduction", value: "92%" },
   { label: "HRs of experience", value: "10,000+" },
   { label: "Training programs", value: "15+" },
 ];
