@@ -53,7 +53,7 @@ const upsertFile = async ({ path, content, message, branch, sha }) => {
   );
 };
 
-const deleteFile = async ({ path, message, branch, sha }) => {
+const deleteGithubFile = async ({ path, message, branch, sha }) => {
   return githubRequest(
     `/contents/${encodeURIComponent(path).replace(/%2F/g, "/")}`,
     "DELETE",
@@ -75,39 +75,62 @@ export default async function handler(req, res) {
 
     const branch = process.env.GITHUB_BRANCH || "master";
     const postsPath = "public/data/blog-posts.json";
+    const staticPath = "public/data/blog-posts-static.json";
+    const hiddenPath = "public/data/blog-posts-hidden.json";
 
-    const existing = await getFile(postsPath, branch);
-    if (!existing) return json(res, 404, { error: "blog-posts.json not found" });
+    const [postsFile, staticFile, hiddenFile] = await Promise.all([
+      getFile(postsPath, branch),
+      getFile(staticPath, branch),
+      getFile(hiddenPath, branch),
+    ]);
 
-    const posts = decodeBase64Json(existing.content);
-    const post = posts.find((p) => p.slug === slug);
-    if (!post) return json(res, 404, { error: "Post not found" });
+    const dynamicPosts = postsFile?.content ? decodeBase64Json(postsFile.content) : [];
+    const staticPosts = staticFile?.content ? decodeBase64Json(staticFile.content) : [];
+    const hiddenSlugs = hiddenFile?.content ? decodeBase64Json(hiddenFile.content) : [];
 
-    // Delete cover image if it's in uploads/blog/
-    if (post.cover && post.cover.startsWith("/uploads/blog/")) {
-      const imagePath = `public${post.cover}`;
-      const imageFile = await getFile(imagePath, branch);
-      if (imageFile?.sha) {
-        await deleteFile({
-          path: imagePath,
-          message: `feat(blog): remove cover image for ${slug}`,
-          branch,
-          sha: imageFile.sha,
-        }).catch(() => {}); // non-blocking
-      }
+    const isDynamic = dynamicPosts.some((p) => p.slug === slug);
+    const isStatic = staticPosts.some((p) => p.slug === slug);
+
+    if (!isDynamic && !isStatic) {
+      return json(res, 404, { error: "Post not found" });
     }
 
-    // Remove post from array
-    const nextPosts = posts.filter((p) => p.slug !== slug);
-    const postsContent = Buffer.from(JSON.stringify(nextPosts, null, 2), "utf8").toString("base64");
+    if (isDynamic) {
+      // Remove from dynamic list + delete cover image
+      const post = dynamicPosts.find((p) => p.slug === slug);
+      if (post?.cover && post.cover.startsWith("/uploads/blog/")) {
+        const imagePath = `public${post.cover}`;
+        const imageFile = await getFile(imagePath, branch);
+        if (imageFile?.sha) {
+          await deleteGithubFile({
+            path: imagePath,
+            message: `feat(blog): remove cover image for ${slug}`,
+            branch,
+            sha: imageFile.sha,
+          }).catch(() => {});
+        }
+      }
+      const nextPosts = dynamicPosts.filter((p) => p.slug !== slug);
+      await upsertFile({
+        path: postsPath,
+        content: Buffer.from(JSON.stringify(nextPosts, null, 2), "utf8").toString("base64"),
+        message: `feat(blog): delete post ${slug}`,
+        branch,
+        sha: postsFile.sha,
+      });
+    }
 
-    await upsertFile({
-      path: postsPath,
-      content: postsContent,
-      message: `feat(blog): delete post ${slug}`,
-      branch,
-      sha: existing.sha,
-    });
+    if (isStatic && !hiddenSlugs.includes(slug)) {
+      // Hide static post by adding to hidden list
+      const nextHidden = [...hiddenSlugs, slug];
+      await upsertFile({
+        path: hiddenPath,
+        content: Buffer.from(JSON.stringify(nextHidden, null, 2), "utf8").toString("base64"),
+        message: `feat(blog): hide static post ${slug}`,
+        branch,
+        sha: hiddenFile?.sha,
+      });
+    }
 
     return json(res, 200, { ok: true, slug });
   } catch (error) {

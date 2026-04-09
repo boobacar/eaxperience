@@ -226,23 +226,15 @@ function PostsList({ password, onEdit }) {
                 )}
               </div>
               <div className="flex gap-2 flex-shrink-0">
-                {post.static ? (
-                  <span className="rounded-xl bg-white/10 px-3 py-2 text-xs text-white/40 italic">
-                    Static (read-only)
-                  </span>
-                ) : (
-                  <>
-                    <button onClick={() => onEdit(post)}
-                      className="rounded-xl bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/20">
-                      ✏️ Edit
-                    </button>
-                    <button onClick={() => handleDelete(post)}
-                      disabled={deletingSlug === post.slug}
-                      className="rounded-xl bg-red-600/80 px-3 py-2 text-sm text-white hover:bg-red-600 disabled:opacity-60">
-                      {deletingSlug === post.slug ? "..." : "🗑️ Delete"}
-                    </button>
-                  </>
-                )}
+                <button onClick={() => onEdit(post)}
+                  className="rounded-xl bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/20">
+                  ✏️ Edit
+                </button>
+                <button onClick={() => handleDelete(post)}
+                  disabled={deletingSlug === post.slug}
+                  className="rounded-xl bg-red-600/80 px-3 py-2 text-sm text-white hover:bg-red-600 disabled:opacity-60">
+                  {deletingSlug === post.slug ? "..." : "🗑️ Delete"}
+                </button>
               </div>
             </li>
           ))}

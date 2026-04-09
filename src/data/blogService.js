@@ -2,33 +2,44 @@ import { blogPosts as staticPosts } from "./content";
 
 export async function loadBlogPosts() {
   try {
-    const response = await fetch("/data/blog-posts.json", { cache: "no-store" });
-    if (!response.ok) return staticPosts;
+    const [dynamicRes, hiddenRes] = await Promise.all([
+      fetch("/data/blog-posts.json", { cache: "no-store" }),
+      fetch("/data/blog-posts-hidden.json", { cache: "no-store" }),
+    ]);
 
-    const dynamicPosts = await response.json();
-    if (!Array.isArray(dynamicPosts)) return staticPosts;
+    const dynamicPosts = dynamicRes.ok ? await dynamicRes.json() : [];
+    const hiddenSlugs = new Set(
+      hiddenRes.ok ? await hiddenRes.json() : []
+    );
 
-    const merged = [...dynamicPosts];
+    if (!Array.isArray(dynamicPosts)) return normalize(staticPosts);
 
-    staticPosts.forEach((post) => {
-      if (!dynamicPosts.find((item) => item.slug === post.slug)) {
-        merged.push(post);
-      }
-    });
+    const dynamicSlugs = new Set(dynamicPosts.map((p) => p.slug));
 
-    return merged.map((post) => ({
-      ...post,
-      author: post.author || "EAXperience Team",
-      tags: Array.isArray(post.tags) ? post.tags : ["Blog"],
-      sections: Array.isArray(post.sections) ? post.sections : [],
-      cover: post.cover,
-      readingTime: post.readingTime || "5 min read",
-      excerpt: post.excerpt || "",
-      date: post.date || "",
-      slug: post.slug,
-      title: post.title,
-    }));
+    const merged = [
+      ...dynamicPosts,
+      ...staticPosts.filter(
+        (p) => !dynamicSlugs.has(p.slug) && !hiddenSlugs.has(p.slug)
+      ),
+    ];
+
+    return normalize(merged);
   } catch {
-    return staticPosts.map((post) => ({ ...post, author: post.author || "EAXperience Team" }));
+    return normalize(staticPosts);
   }
+}
+
+function normalize(posts) {
+  return posts.map((post) => ({
+    ...post,
+    author: post.author || "EAXperience Team",
+    tags: Array.isArray(post.tags) ? post.tags : ["Blog"],
+    sections: Array.isArray(post.sections) ? post.sections : [],
+    cover: post.cover,
+    readingTime: post.readingTime || "5 min read",
+    excerpt: post.excerpt || "",
+    date: post.date || "",
+    slug: post.slug,
+    title: post.title,
+  }));
 }

@@ -56,19 +56,23 @@ export default async function handler(req, res) {
   try {
     const branch = process.env.GITHUB_BRANCH || "master";
 
-    // Dynamic posts (published via admin)
-    const dynamicFile = await getFile("public/data/blog-posts.json", branch);
+    const [dynamicFile, staticFile, hiddenFile] = await Promise.all([
+      getFile("public/data/blog-posts.json", branch),
+      getFile("public/data/blog-posts-static.json", branch),
+      getFile("public/data/blog-posts-hidden.json", branch),
+    ]);
+
     const dynamicPosts = dynamicFile?.content ? decodeBase64Json(dynamicFile.content) : [];
-
-    // Static posts (hardcoded in content.js — mirrored here as JSON for API use)
-    const staticFile = await getFile("public/data/blog-posts-static.json", branch);
     const staticPosts = staticFile?.content ? decodeBase64Json(staticFile.content) : [];
+    const hiddenSlugs = new Set(hiddenFile?.content ? decodeBase64Json(hiddenFile.content) : []);
 
-    // Merge: dynamic first, then static posts not already overridden
+    // Dynamic posts first, then static posts not overridden or hidden
     const dynamicSlugs = new Set(dynamicPosts.map((p) => p.slug));
     const merged = [
       ...dynamicPosts,
-      ...staticPosts.filter((p) => !dynamicSlugs.has(p.slug)),
+      ...staticPosts
+        .filter((p) => !dynamicSlugs.has(p.slug) && !hiddenSlugs.has(p.slug))
+        .map((p) => ({ ...p, static: true })),
     ];
 
     return json(res, 200, { posts: merged });
