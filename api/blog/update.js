@@ -95,14 +95,15 @@ export default async function handler(req, res) {
     const hiddenSlugs = hiddenFile?.content ? decodeBase64Json(hiddenFile.content) : [];
 
     const isDynamic = dynamicPosts.some((p) => p.slug === slug);
-    const staticPost = staticPosts.find((p) => p.slug === slug);
-    const isStatic = !!staticPost && !isDynamic;
+    const isStatic = staticPosts.some((p) => p.slug === slug);
 
     if (!isDynamic && !isStatic) return json(res, 404, { error: "Post not found" });
 
-    let cover = isDynamic
-      ? dynamicPosts.find((p) => p.slug === slug)?.cover
-      : staticPost?.cover || null;
+    const oldPost = isDynamic
+      ? dynamicPosts.find((p) => p.slug === slug)
+      : staticPosts.find((p) => p.slug === slug);
+
+    let cover = oldPost.cover || null;
 
     // Upload new image if provided
     if (imageBase64) {
@@ -115,16 +116,15 @@ export default async function handler(req, res) {
         branch,
       });
       const newCover = `/uploads/blog/${slug}.${safeExt}`;
-
-      // Delete old cover if different and was a dynamic upload
+      // Delete old image if it was a dynamic upload and path changed
       if (cover && cover !== newCover && cover.startsWith("/uploads/blog/")) {
-        const oldFile = await getFile(`public${cover}`, branch);
-        if (oldFile?.sha) {
+        const oldImageFile = await getFile(`public${cover}`, branch);
+        if (oldImageFile?.sha) {
           await deleteGithubFile({
             path: `public${cover}`,
             message: `feat(blog): remove old cover for ${slug}`,
             branch,
-            sha: oldFile.sha,
+            sha: oldImageFile.sha,
           }).catch(() => {});
         }
       }
@@ -133,14 +133,12 @@ export default async function handler(req, res) {
 
     const updatedPost = {
       slug,
-      date: isDynamic
-        ? dynamicPosts.find((p) => p.slug === slug)?.date
-        : staticPost?.date || new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
+      date: oldPost.date || new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
       title,
       author: "EAXperience Team",
       excerpt: text.slice(0, 180) + (text.length > 180 ? "..." : ""),
-      cover: cover || null,
-      tags: Array.isArray(tags) && tags.length ? tags.slice(0, 5) : (isDynamic ? dynamicPosts.find((p) => p.slug === slug)?.tags : staticPost?.tags) || ["Blog"],
+      cover,
+      tags: Array.isArray(tags) && tags.length ? tags.slice(0, 5) : (oldPost.tags || ["Blog"]),
       readingTime: estimateReadingTime(text),
       sections: [
         {
@@ -150,20 +148,19 @@ export default async function handler(req, res) {
       ],
     };
 
-    let nextPosts;
+    let nextDynamic;
     if (isDynamic) {
-      // Replace existing dynamic post
-      nextPosts = dynamicPosts.map((p) => (p.slug === slug ? updatedPost : p));
+      // Replace in-place
+      nextDynamic = dynamicPosts.map((p) => (p.slug === slug ? updatedPost : p));
     } else {
-      // Promote static post to dynamic (override)
-      nextPosts = [updatedPost, ...dynamicPosts];
-      // Also hide the static version so it doesn't appear twice
+      // Static post: promote to dynamic (overrides static) + hide static
+      nextDynamic = [updatedPost, ...dynamicPosts];
       if (!hiddenSlugs.includes(slug)) {
         const nextHidden = [...hiddenSlugs, slug];
         await upsertFile({
           path: hiddenPath,
           content: Buffer.from(JSON.stringify(nextHidden, null, 2), "utf8").toString("base64"),
-          message: `feat(blog): hide static post ${slug} (promoted to dynamic)`,
+          message: `feat(blog): promote static post ${slug} to dynamic`,
           branch,
           sha: hiddenFile?.sha,
         });
@@ -172,7 +169,7 @@ export default async function handler(req, res) {
 
     await upsertFile({
       path: postsPath,
-      content: Buffer.from(JSON.stringify(nextPosts, null, 2), "utf8").toString("base64"),
+      content: Buffer.from(JSON.stringify(nextDynamic, null, 2), "utf8").toString("base64"),
       message: `feat(blog): update post ${slug}`,
       branch,
       sha: postsFile?.sha,

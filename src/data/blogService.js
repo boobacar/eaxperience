@@ -8,38 +8,31 @@ export async function loadBlogPosts() {
     ]);
 
     const dynamicPosts = dynamicRes.ok ? await dynamicRes.json() : [];
-    const hiddenSlugs = new Set(
-      hiddenRes.ok ? await hiddenRes.json() : []
-    );
+    const hiddenSlugs = new Set(hiddenRes.ok ? await hiddenRes.json() : []);
 
-    if (!Array.isArray(dynamicPosts)) return normalize(staticPosts);
+    if (!Array.isArray(dynamicPosts)) return staticPosts;
 
     const dynamicSlugs = new Set(dynamicPosts.map((p) => p.slug));
 
+    // Dynamic posts first, then static posts not overridden or hidden
     const merged = [
-      ...dynamicPosts,
-      ...staticPosts.filter(
-        (p) => !dynamicSlugs.has(p.slug) && !hiddenSlugs.has(p.slug)
-      ),
+      ...dynamicPosts.filter((p) => !hiddenSlugs.has(p.slug)),
+      ...staticPosts.filter((p) => !dynamicSlugs.has(p.slug) && !hiddenSlugs.has(p.slug)),
     ];
 
-    return normalize(merged);
+    return merged.map((post) => ({
+      ...post,
+      author: post.author || "EAXperience Team",
+      tags: Array.isArray(post.tags) ? post.tags : ["Blog"],
+      sections: Array.isArray(post.sections) ? post.sections : [],
+      cover: post.cover,
+      readingTime: post.readingTime || "5 min read",
+      excerpt: post.excerpt || "",
+      date: post.date || "",
+      slug: post.slug,
+      title: post.title,
+    }));
   } catch {
-    return normalize(staticPosts);
+    return staticPosts.map((post) => ({ ...post, author: post.author || "EAXperience Team" }));
   }
-}
-
-function normalize(posts) {
-  return posts.map((post) => ({
-    ...post,
-    author: post.author || "EAXperience Team",
-    tags: Array.isArray(post.tags) ? post.tags : ["Blog"],
-    sections: Array.isArray(post.sections) ? post.sections : [],
-    cover: post.cover,
-    readingTime: post.readingTime || "5 min read",
-    excerpt: post.excerpt || "",
-    date: post.date || "",
-    slug: post.slug,
-    title: post.title,
-  }));
 }

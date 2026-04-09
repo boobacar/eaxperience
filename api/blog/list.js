@@ -66,13 +66,12 @@ export default async function handler(req, res) {
     const staticPosts = staticFile?.content ? decodeBase64Json(staticFile.content) : [];
     const hiddenSlugs = new Set(hiddenFile?.content ? decodeBase64Json(hiddenFile.content) : []);
 
-    // Dynamic posts first, then static posts not overridden or hidden
+    // Dynamic posts override static; hidden slugs are excluded
     const dynamicSlugs = new Set(dynamicPosts.map((p) => p.slug));
+
     const merged = [
-      ...dynamicPosts,
-      ...staticPosts
-        .filter((p) => !dynamicSlugs.has(p.slug) && !hiddenSlugs.has(p.slug))
-        .map((p) => ({ ...p, static: true })),
+      ...dynamicPosts.filter((p) => !hiddenSlugs.has(p.slug)),
+      ...staticPosts.filter((p) => !dynamicSlugs.has(p.slug) && !hiddenSlugs.has(p.slug)),
     ];
 
     return json(res, 200, { posts: merged });
