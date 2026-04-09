@@ -38,7 +38,7 @@ function PublishForm({ password }) {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Publish failed");
-      setStatus(`✅ Publié : ${data.url}`);
+      setStatus(`✅ Published: ${data.url}`);
       setTitle(""); setText(""); setTags(""); setImage(null);
     } catch (err) {
       setStatus(`❌ ${err.message}`);
@@ -49,19 +49,19 @@ function PublishForm({ password }) {
 
   return (
     <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 space-y-5">
-      <h2 className="font-display text-2xl text-white">Nouveau post</h2>
+      <h2 className="font-display text-2xl text-white">New Post</h2>
       <form onSubmit={onSubmit} className="space-y-4">
-        <input type="text" placeholder="Titre" value={title} onChange={(e) => setTitle(e.target.value)}
+        <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)}
           className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-white" required />
-        <textarea placeholder="Contenu (lignes vides = nouveaux paragraphes)" value={text} onChange={(e) => setText(e.target.value)}
+        <textarea placeholder="Content (empty lines = new paragraphs)" value={text} onChange={(e) => setText(e.target.value)}
           className="w-full min-h-56 rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-white" required />
-        <input type="text" placeholder="Tags (séparés par virgule)" value={tags} onChange={(e) => setTags(e.target.value)}
+        <input type="text" placeholder="Tags (comma separated)" value={tags} onChange={(e) => setTags(e.target.value)}
           className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-white" />
         <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files?.[0] || null)}
           className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-white" required />
         <button type="submit" disabled={loading}
           className="rounded-xl bg-brand-orange px-5 py-3 text-sm font-semibold text-white disabled:opacity-60">
-          {loading ? "Publication..." : "Publier"}
+          {loading ? "Publishing..." : "Publish"}
         </button>
       </form>
       {status && <p className="text-sm text-white/80">{status}</p>}
@@ -86,7 +86,7 @@ function EditForm({ post, password, onDone, onCancel }) {
     e.preventDefault();
     try {
       setLoading(true);
-      setStatus("Mise à jour...");
+      setStatus("Updating...");
       const body = {
         slug: post.slug, title, text,
         tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
@@ -102,7 +102,7 @@ function EditForm({ post, password, onDone, onCancel }) {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Update failed");
-      setStatus("✅ Mis à jour !");
+      setStatus("✅ Updated!");
       setTimeout(onDone, 800);
     } catch (err) {
       setStatus(`❌ ${err.message}`);
@@ -114,23 +114,23 @@ function EditForm({ post, password, onDone, onCancel }) {
   return (
     <div className="rounded-3xl border border-brand-orange/40 bg-white/5 p-6 md:p-8 space-y-5">
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-2xl text-white">Modifier le post</h2>
+        <h2 className="font-display text-2xl text-white">Edit Post</h2>
         <button onClick={onCancel} className="rounded-xl bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20">
-          Annuler
+          Cancel
         </button>
       </div>
       <form onSubmit={onSubmit} className="space-y-4">
-        <input type="text" placeholder="Titre" value={title} onChange={(e) => setTitle(e.target.value)}
+        <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)}
           className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-white" required />
-        <textarea placeholder="Contenu" value={text} onChange={(e) => setText(e.target.value)}
+        <textarea placeholder="Content" value={text} onChange={(e) => setText(e.target.value)}
           className="w-full min-h-56 rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-white" required />
-        <input type="text" placeholder="Tags (séparés par virgule)" value={tags} onChange={(e) => setTags(e.target.value)}
+        <input type="text" placeholder="Tags (comma separated)" value={tags} onChange={(e) => setTags(e.target.value)}
           className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-white" />
         <div className="space-y-1">
           {post.cover && (
             <div className="flex items-center gap-3">
-              <img src={post.cover} alt="cover actuelle" className="h-16 w-24 rounded-lg object-cover opacity-70" />
-              <span className="text-xs text-white/50">Image actuelle — laisser vide pour la conserver</span>
+              <img src={post.cover} alt="current cover" className="h-16 w-24 rounded-lg object-cover opacity-70" />
+              <span className="text-xs text-white/50">Current image — leave empty to keep it</span>
             </div>
           )}
           <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files?.[0] || null)}
@@ -138,7 +138,7 @@ function EditForm({ post, password, onDone, onCancel }) {
         </div>
         <button type="submit" disabled={loading}
           className="rounded-xl bg-brand-orange px-5 py-3 text-sm font-semibold text-white disabled:opacity-60">
-          {loading ? "Mise à jour..." : "Mettre à jour"}
+          {loading ? "Updating..." : "Update Post"}
         </button>
       </form>
       {status && <p className="text-sm text-white/80">{status}</p>}
@@ -161,7 +161,7 @@ function PostsList({ password, onEdit }) {
         headers: { "x-admin-password": password },
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Erreur chargement");
+      if (!res.ok) throw new Error(data.error || "Failed to load posts");
       setPosts(data.posts);
     } catch (err) {
       setError(`❌ ${err.message}`);
@@ -171,7 +171,7 @@ function PostsList({ password, onEdit }) {
   };
 
   const handleDelete = async (post) => {
-    if (!window.confirm(`Supprimer "${post.title}" ? Cette action est irréversible.`)) return;
+    if (!window.confirm(`Delete "${post.title}"? This action cannot be undone.`)) return;
     try {
       setDeletingSlug(post.slug);
       const res = await fetch("/api/blog/delete", {
@@ -180,7 +180,7 @@ function PostsList({ password, onEdit }) {
         body: JSON.stringify({ slug: post.slug }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Suppression échouée");
+      if (!res.ok) throw new Error(data.error || "Delete failed");
       setPosts((prev) => prev.filter((p) => p.slug !== post.slug));
     } catch (err) {
       setError(`❌ ${err.message}`);
@@ -192,21 +192,21 @@ function PostsList({ password, onEdit }) {
   return (
     <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 space-y-5">
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-2xl text-white">Tous les posts</h2>
+        <h2 className="font-display text-2xl text-white">All Posts</h2>
         <button onClick={loadPosts} disabled={loading}
           className="rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/20 disabled:opacity-60">
-          {loading ? "Chargement..." : posts ? "Actualiser" : "Charger les posts"}
+          {loading ? "Loading..." : posts ? "Refresh" : "Load Posts"}
         </button>
       </div>
 
       {error && <p className="text-sm text-red-400">{error}</p>}
 
       {posts === null && !loading && (
-        <p className="text-sm text-white/50">Cliquez sur "Charger les posts" pour afficher la liste.</p>
+        <p className="text-sm text-white/50">Click "Load Posts" to display the list.</p>
       )}
 
       {posts !== null && posts.length === 0 && (
-        <p className="text-sm text-white/50">Aucun post trouvé.</p>
+        <p className="text-sm text-white/50">No posts found.</p>
       )}
 
       {posts && posts.length > 0 && (
@@ -266,19 +266,19 @@ export default function AdminBlog() {
       <div className="mx-auto max-w-3xl space-y-8">
         <h1 className="font-display text-3xl text-white">Blog Admin</h1>
         <p className="text-sm text-white/70">
-          Auteur automatique : <strong>EAXperience Team</strong>
+          Author is set automatically: <strong>EAXperience Team</strong>
         </p>
 
         {!authed ? (
           <form onSubmit={handleAuth}
             className="rounded-3xl border border-white/10 bg-white/5 p-6 space-y-4">
-            <p className="text-white/70 text-sm">Entrez le mot de passe admin pour continuer.</p>
-            <input type="password" placeholder="Mot de passe admin" value={password}
+            <p className="text-white/70 text-sm">Enter the admin password to continue.</p>
+            <input type="password" placeholder="Admin password" value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-white" required />
             <button type="submit"
               className="rounded-xl bg-brand-orange px-5 py-3 text-sm font-semibold text-white">
-              Accéder
+              Access
             </button>
           </form>
         ) : (
