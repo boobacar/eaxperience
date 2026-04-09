@@ -33,10 +33,10 @@ const githubRequest = async (path, method = "GET", body) => {
   return response.json();
 };
 
-const getFile = async (path, branch) => {
+const getFile = async (filePath, branch) => {
   try {
     const data = await githubRequest(
-      `/contents/${encodeURIComponent(path).replace(/%2F/g, "/")}?ref=${encodeURIComponent(branch)}`
+      `/contents/${encodeURIComponent(filePath).replace(/%2F/g, "/")}?ref=${encodeURIComponent(branch)}`
     );
     return data;
   } catch (error) {
@@ -55,9 +55,23 @@ export default async function handler(req, res) {
 
   try {
     const branch = process.env.GITHUB_BRANCH || "master";
-    const existing = await getFile("public/data/blog-posts.json", branch);
-    const posts = existing?.content ? decodeBase64Json(existing.content) : [];
-    return json(res, 200, { posts });
+
+    // Dynamic posts (published via admin)
+    const dynamicFile = await getFile("public/data/blog-posts.json", branch);
+    const dynamicPosts = dynamicFile?.content ? decodeBase64Json(dynamicFile.content) : [];
+
+    // Static posts (hardcoded in content.js — mirrored here as JSON for API use)
+    const staticFile = await getFile("public/data/blog-posts-static.json", branch);
+    const staticPosts = staticFile?.content ? decodeBase64Json(staticFile.content) : [];
+
+    // Merge: dynamic first, then static posts not already overridden
+    const dynamicSlugs = new Set(dynamicPosts.map((p) => p.slug));
+    const merged = [
+      ...dynamicPosts,
+      ...staticPosts.filter((p) => !dynamicSlugs.has(p.slug)),
+    ];
+
+    return json(res, 200, { posts: merged });
   } catch (error) {
     return json(res, 500, { error: error.message });
   }

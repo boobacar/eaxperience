@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "aging-gracefully-strength-health-independence",
+    "date": "February 27, 2026",
+    "title": "Aging Gracefully: A Professional Approach to Strength, Health, and Independence",
+    "author": "EAXperience Team",
+    "excerpt": "Aging is inevitable, but rapid decline is not. Learn the science-backed framework to preserve strength, function, and independence for decades.",
+    "cover": null,
+    "tags": ["Healthy aging", "Strength", "Independence"],
+    "readingTime": "9 min read",
+    "static": true
+  },
+  {
+    "slug": "understanding-heart-health",
+    "date": "February 20, 2026",
+    "title": "Understanding Heart Health: Common Conditions, Risk Factors and Steps to Protect Your Heart",
+    "author": "EAXperience Team",
+    "excerpt": "Heart disease remains a leading cause of illness, but many cases are preventable with early screening, exercise, nutrition, and consistent lifestyle change.",
+    "cover": null,
+    "tags": ["Heart health", "Prevention", "Wellness"],
+    "readingTime": "10 min read",
+    "static": true
+  },
+  {
+    "slug": "early-specialization-kids",
+    "date": "January 2, 2025",
+    "title": "Is early specialization bad for kids?",
+    "author": "EAXperience Team",
+    "excerpt": "Early specialization in youth sports is increasingly popular, but long-term athletic development research suggests multi-sport participation leads to healthier and more sustainable performance.",
+    "cover": null,
+    "tags": ["Youth sports", "Longevity", "Performance"],
+    "readingTime": "6 min read",
+    "static": true
+  },
+  {
+    "slug": "ultimate-guide-building-muscle-strength",
+    "date": "October 15, 2023",
+    "title": "The Ultimate Guide to Building Muscle and Strength",
+    "author": "EAXperience Team",
+    "excerpt": "A practical guide to building muscle through smart training, progressive overload, proper nutrition, recovery, and long-term consistency.",
+    "cover": null,
+    "tags": ["Strength", "Hypertrophy", "Training"],
+    "readingTime": "8 min read",
+    "static": true
+  },
+  {
+    "slug": "burn-fat-without-losing-muscle",
+    "date": "October 1, 2023",
+    "title": "How to Burn Fat Without Losing Muscle",
+    "author": "EAXperience Team",
+    "excerpt": "A simple, science-based guide to losing fat while maintaining muscle through smart training, nutrition, and recovery.",
+    "cover": null,
+    "tags": ["Fat loss", "Body composition", "Nutrition"],
+    "readingTime": "7 min read",
+    "static": true
+  }
+]
