@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "slug": "test-558562",
+    "date": "April 9, 2026",
+    "title": "Test",
+    "author": "EAXperience Team",
+    "excerpt": "Blog post testing",
+    "cover": "/uploads/blog/test-558562.jpg",
+    "tags": [
+      "Blog"
+    ],
+    "readingTime": "1 min read",
+    "sections": [
+      {
+        "heading": "",
+        "body": [
+          "Blog post testing"
+        ]
+      }
+    ]
+  }
+]
